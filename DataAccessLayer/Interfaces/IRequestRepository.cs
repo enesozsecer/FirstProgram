@@ -3,11 +3,12 @@ using Model.Entities;
 
 namespace DataAccessLayer.Interfaces
 {
-    public interface IRequestRepository : IBaseRepository<Request>
+    public interface IRequestRepository : BaseRepository<Request>
     {
-        Task<List<Request>> GetByRequestType(string type, params string[] IncludeList);
-        Task<Request> FindByIdAsync(int requestId, params string[] IncludeList);
-        Task<List<Request>> GetByUserId(int userId, params string[] IncludeList);
-        Task<List<Request>> GetByProductId(int productId, params string[] IncludeList);
+        Task<Request> GetByIdAsync(int Id, params string[] IncludeList);
+        Task<List<Request>> GetDescriptionAsync(string description, params string[] IncludeList);
+        Task<List<Request>> GetCategoryNameAsync(string categoryName, params string[] IncludeList);
+        Task<List<Request>> GetUserNameAsync(string userName, params string[] IncludeList);
+        Task<List<Request>> GetStatusNameAsync(string statusName, params string[] IncludeList);
     }
 }

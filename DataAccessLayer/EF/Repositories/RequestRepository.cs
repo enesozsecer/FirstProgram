@@ -7,24 +7,29 @@ namespace DataAccessLayer.EF.Repositories
 {
     public class RequestRepository : BaseRepository<Request, FirstProgramContext>, IRequestRepository
     {
-        public async Task<Request> FindByIdAsync(int requestId, params string[] IncludeList)
+        public async Task<Request> GetByIdAsync(int Id, params string[] IncludeList)
         {
-            return await FindAsync(req=>req.RequestID==requestId, IncludeList);
+            return await GetAsync(val => val.ID == Id, IncludeList);
         }
 
-        public async Task<List<Request>> GetByProductId(int productId, params string[] IncludeList)
+        public async Task<List<Request>> GetCategoryNameAsync(string categoryName, params string[] IncludeList)
         {
-            return await GetAllAsync(req => req.ProductID == productId, IncludeList);
+            return await GetAllAsync(val => val.CategoryName == categoryName, IncludeList);
         }
 
-        public async Task<List<Request>> GetByRequestType(string type, params string[] IncludeList)
+        public async Task<List<Request>> GetDescriptionAsync(string description, params string[] IncludeList)
         {
-            return await GetAllAsync(req => req.RequestType == type, IncludeList);
+            return await GetAllAsync(val => val.Description.Contains(description), IncludeList);
         }
 
-        public async Task<List<Request>> GetByUserId(int userId, params string[] IncludeList)
+        public async Task<List<Request>> GetStatusNameAsync(string statusName, params string[] IncludeList)
         {
-            return await GetAllAsync(req => req.UserID == userId, IncludeList);
+            return await GetAllAsync(val => val.StatusName.Contains(statusName), IncludeList);
+        }
+
+        public async Task<List<Request>> GetUserNameAsync(string userName, params string[] IncludeList)
+        {
+            return await GetAllAsync(val => val.UserName.Contains(userName), IncludeList);
         }
     }
 }

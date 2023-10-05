@@ -9,11 +9,15 @@ namespace Model.Entities
 {
     public class User : IEntities
     {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string UserRole { get; set; }
-        public string UserDepartment { get; set; }
-        public string ProductID { get; set; }
-        public string UserPassword { get; set; }
+        public int ID { get; set; }
+        public string? Name { get; set; }
+        public string? Password { get; set; }
+        public int? RoleID { get; set; }
+        public int? DepartmentID { get; set; }
+        public int? CompanyID { get; set; }
+        public string? RoleName { get; set; }
+        public string? DepartmentName { get; set; }
+        public string? CompanyName { get; set; }
+
     }
 }

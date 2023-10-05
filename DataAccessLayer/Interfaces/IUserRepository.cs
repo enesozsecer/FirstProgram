@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Interfaces
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface IUserRepository : BaseRepository<User>
     {
-        Task<List<User>> FindUserRoleAsync(string role, params string[] IncludeList);
-        Task<User> FindByIdAsync(int userId, params string[] IncludeList);
+        Task<User> GetByIdAsync(int Id, params string[] IncludeList);
+        Task<List<User>> GetNameAsync(string name, params string[] IncludeList);
+        Task<List<User>> GetRoleNameAsync(string roleName, params string[] IncludeList);
+        Task<List<User>> GetDepartmentNameAsync(string departmentName, params string[] IncludeList);
+        Task<List<User>> GetCompanyNameAsync(string companyName, params string[] IncludeList);
     }
 }

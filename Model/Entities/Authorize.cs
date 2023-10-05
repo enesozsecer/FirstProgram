@@ -9,7 +9,17 @@ namespace Model.Entities
 {
     public class Authorize : IEntities
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Role { get; set; }
+
+        //public Role Role { get; set; }
+
+        //public enum Role
+        //{
+        //    admin = 1,
+        //    user = 2,
+        //    supplier = 3,
+        //    purchasingmanager = 4
+        //}
     }
 }

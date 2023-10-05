@@ -7,24 +7,29 @@ namespace DataAccessLayer.EF.Repositories
 {
     public class ProductRepository : BaseRepository<Product, FirstProgramContext>, IProductRepository
     {
-        public async Task<Product> FindByIdAsync(int productId, params string[] IncludeList)
+        public async Task<Product> GetByIdAsync(int Id, params string[] IncludeList)
         {
-            return await FindAsync(prd => prd.ProductID == productId, IncludeList);
+            return await GetAsync(val => val.ID == Id, IncludeList);
         }
 
-        public async Task<List<Product>> ListByProductPriceAsync(decimal min, decimal max, params string[] IncludeList)
+        public async Task<List<Product>> GetCategoryNameAsync(string CategoryName, params string[] IncludeList)
         {
-            return await GetAllAsync(prd => prd.ProductPrice < max && prd.ProductPrice > min, IncludeList);
+            return await GetAllAsync(val => val.CategoryName.Contains(CategoryName), IncludeList);
         }
 
-        public async Task<List<Product>> ListProductStockAsync(short min, short max, params string[] IncludeList)
+        public async Task<List<Product>> GetNameAsync(string name, params string[] IncludeList)
         {
-            return await GetAllAsync(prd => prd.StockQuantity < max && prd.StockQuantity > min, IncludeList);
+            return await GetAllAsync(val => val.Name.Contains(name), IncludeList);
         }
 
-        public async Task<List<Product>> SearchProductNameAsync(string name, params string[] IncludeList)
+        public async Task<List<Product>> GetPriceAsync(decimal min, decimal max, params string[] IncludeList)
         {
-            return await GetAllAsync(prd => prd.ProductName.Contains(name), IncludeList);
+            return await GetAllAsync(val => val.ProductPrice < max && val.ProductPrice > min, IncludeList);
+        }
+
+        public async Task<List<Product>> GetStockAsync(short min, short max, params string[] IncludeList)
+        {
+            return await GetAllAsync(val => val.StockQuantity < max && val.StockQuantity > min, IncludeList);
         }
     }
 }

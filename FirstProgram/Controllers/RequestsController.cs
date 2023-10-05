@@ -15,9 +15,9 @@ namespace FirstProgram.Controllers
             _requestBs = requestBs;
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> FindById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var response=await _requestBs.FindByIdAsync(id);
+            var response=await _requestBs.GetByIdAsync(id);
             return Ok(response);
         }
     }

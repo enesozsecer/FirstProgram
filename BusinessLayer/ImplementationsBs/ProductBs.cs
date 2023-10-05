@@ -22,28 +22,61 @@ namespace BusinessLayer.ImplementationsBs
         }
         public async Task DeleteAsync(int id)
         {
-            var product = await _repo.FindByIdAsync(id);
+            var product = await _repo.GetByIdAsync(id);
             await _repo.DeleteAsync(product);
         }
 
-        public async Task<Product> FindByIdAsync(int productId, params string[] IncludeList)
+        public async Task<Product> GetByIdAsync(int Id, params string[] IncludeList)
         {
-            var product = await _repo.FindByIdAsync(productId, IncludeList);
-            if (product != null)
+            var val = await _repo.GetByIdAsync(Id, IncludeList);
+            if (val != null)
             {
-                var dto = _mapper.Map<Product>(product);
+                var dto = _mapper.Map<Product>(val);
                 return dto;
             }
             throw new NotImplementedException();
         }
 
-        public async Task<List<Product>> GetProductsAsync(params string[] IncludeList)
+        public async Task<List<Product>> GetCategoryNameAsync(string CategoryName, params string[] IncludeList)
         {
-            var products = await _repo.GetAllAsync(includeList: IncludeList);
-            if (products.Count > 0)
+            var val = await _repo.GetCategoryNameAsync(CategoryName, IncludeList);
+            if (val.Count > 0)
             {
-                var productList = _mapper.Map<List<Product>>(products);
-                return productList;
+                var valList = _mapper.Map<List<Product>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Product>> GetNameAsync(string name, params string[] IncludeList)
+        {
+            var val = await _repo.GetNameAsync(name, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<Product>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Product>> GetPriceAsync(decimal min, decimal max, params string[] IncludeList)
+        {
+            var val = await _repo.GetPriceAsync(min,max, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<Product>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Product>> GetStockAsync(short min, short max, params string[] IncludeList)
+        {
+            var val = await _repo.GetStockAsync(min, max, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<Product>>(val);
+                return valList;
             }
             throw new NotImplementedException();
         }
@@ -53,39 +86,6 @@ namespace BusinessLayer.ImplementationsBs
             var product = _mapper.Map<Product>(entity);
             var insertedProduct = await _repo.InsertAsync(product);
             return insertedProduct;
-        }
-
-        public async Task<List<Product>> ListByProductPriceAsync(decimal min, decimal max, params string[] IncludeList)
-        {
-            var products = await _repo.ListByProductPriceAsync(min, max, IncludeList);
-            if (products.Count > 0)
-            {
-                var productList=_mapper.Map<List<Product>>(products);
-                return productList;
-            }
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Product>> ListProductStockAsync(short min, short max, params string[] IncludeList)
-        {
-            var products = await _repo.ListProductStockAsync(min, max, IncludeList);
-            if (products.Count > 0)
-            {
-                var productList = _mapper.Map<List<Product>>(products);
-                return productList;
-            }
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Product>> SearchProductNameAsync(string name, params string[] IncludeList)
-        {
-            var products = await _repo.SearchProductNameAsync(name, IncludeList);
-            if (products.Count > 0)
-            {
-                var productList = _mapper.Map<List<Product>>(products);
-                return productList;
-            }
-            throw new NotImplementedException();
         }
 
         public async Task<Product> UpdateAsync(Product entity)

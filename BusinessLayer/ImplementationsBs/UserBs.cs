@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
+using System.Data;
 
 namespace BusinessLayer.ImplementationsBs
 {
@@ -24,75 +25,80 @@ namespace BusinessLayer.ImplementationsBs
         }
         public async Task DeleteAsync(int id)
         {
-            var user = await _repo.FindByIdAsync(id);
-            await _repo.DeleteAsync(user);
+            var val = await _repo.GetByIdAsync(id);
+            await _repo.DeleteAsync(val);
         }
-
-        public async Task<User> FindByIdAsync(int userId, params string[] IncludeList)
-        {
-            var user = await _repo.FindByIdAsync(userId, IncludeList);
-            if (user != null)
-            {
-                var dto = _mapper.Map<User>(user);
-                return dto;
-            }
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<User>> FindUserRoleAsync(string role, params string[] IncludeList)
-        {
-            var user = await _repo.FindUserRoleAsync(role, IncludeList);
-            if (user.Count > 0) 
-            {
-                var userList=_mapper.Map<List<User>>(user);
-                return userList;
-            }
-            throw new NotImplementedException();
-        }
-
         public async Task<User> InsertAsync(User entity)
         {
-            var user = _mapper.Map<User>(entity);
-            var insertedUser = await _repo.InsertAsync(user);
+            var val = _mapper.Map<User>(entity);
+            var insertedUser = await _repo.InsertAsync(val);
             return insertedUser;
         }
 
         public async Task<User> UpdateAsync(User entity)
         {
-            var user = _mapper.Map<User>(entity);
-            var insertedUser = await _repo.UpdateAsync(user);
+            var val = _mapper.Map<User>(entity);
+            var insertedUser = await _repo.UpdateAsync(val);
             return insertedUser;
         }
 
 
-        public async Task<AccessToken> AuthenticateAsync(LoginDto login)
+        public async Task<User> GetByIdAsync(int Id, params string[] IncludeList)
         {
-            var user = await _repo.FindAsync(x => x.UserName == login.UserName && x.UserPassword == login.UserPassword);
-            if (user == null)
+            var val = await _repo.GetByIdAsync(Id, IncludeList);
+            if (val != null)
             {
-                return null;
+                var dto = _mapper.Map<User>(val);
+                return dto;
             }
+            throw new NotImplementedException();
+        }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.SecurityKey);
-            var tokenDescriptor = new SecurityTokenDescriptor()
+        public async Task<List<User>> GetNameAsync(string name, params string[] IncludeList)
+        {
+            var val = await _repo.GetNameAsync(name, IncludeList);
+            if (val.Count > 0)
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name,user.UserID.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            AccessToken accessToken = new AccessToken()
+                var valList = _mapper.Map<List<User>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
+
+
+        
+
+        public async Task<List<User>> GetRoleNameAsync(string roleName, params string[] IncludeList)
+        {
+            var val = await _repo.GetRoleNameAsync(roleName, IncludeList);
+            if (val.Count > 0)
             {
-                Token = tokenHandler.WriteToken(token),
-                Expiration = (DateTime)tokenDescriptor.Expires,
-                UserName = user.UserName,
-                UserID = user.UserID,
-            };
-            return await Task.Run(() => accessToken);
+                var valList = _mapper.Map<List<User>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<User>> GetDepartmentNameAsync(string departmentName, params string[] IncludeList)
+        {
+            var val = await _repo.GetDepartmentNameAsync(departmentName, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<User>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<User>> GetCompanyNameAsync(string companyName, params string[] IncludeList)
+        {
+            var val = await _repo.GetCompanyNameAsync(companyName, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<User>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
         }
     }
 }

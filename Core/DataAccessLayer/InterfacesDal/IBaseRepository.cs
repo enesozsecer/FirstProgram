@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Core.DataAccessLayer.InterfacesDal
 {
-    public interface IBaseRepository<TEntity>
+    public interface BaseRepository<TEntity>
         where TEntity : class, IEntities
     {
         Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params string[] includeList);
-        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate, params string[] includeList);
+        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params string[] includeList);
         Task<TEntity> InsertAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
         Task DeleteAsync(TEntity entity);

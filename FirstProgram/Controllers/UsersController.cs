@@ -1,7 +1,10 @@
-﻿using BusinessLayer.InterfacesBs;
+﻿using BusinessLayer.ImplementationsBs;
+using BusinessLayer.InterfacesBs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Model.Dtos.ProductDto;
 using Model.Dtos.UserLoginDto;
+using Model.Entities;
 
 namespace FirstProgram.Controllers
 {
@@ -14,14 +17,18 @@ namespace FirstProgram.Controllers
         {
             _userBs = userBs;
         }
-        //[AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Authenticate([FromBody] LoginDto dto)
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var response = await _userBs.AuthenticateAsync(dto);
-            if (response != null)
-                return Ok(response);
-            return BadRequest();
+            var response = await _userBs.GetByIdAsync(id);
+            return Ok(response);
+        }
+        [HttpPost("addnewuser")]
+        public async Task<IActionResult> AddNewUser([FromBody] User dto)
+        {
+            var response = await _userBs.InsertAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
     }
 }

@@ -13,9 +13,9 @@ namespace FirstProgram.Controllers
             _productBs = productBs;
         }
         [HttpGet]
-        public async Task<IActionResult> FindById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            await _productBs.FindByIdAsync(id);
+            await _productBs.GetByIdAsync(id);
             return Ok("iyiyim");
         }
     }

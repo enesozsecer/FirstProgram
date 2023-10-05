@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model.Entities
 {
-    public class Category : IEntities
+    public class Department : IEntities
     {
         public int ID { get; set; }
         public string? Name { get; set; }

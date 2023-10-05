@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Core.DataAccessLayer.ImplementationsDal
 {
-    public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntity>
+    public abstract class BaseRepository<TEntity, TContext> : BaseRepository<TEntity>
         where TEntity : class, IEntities
         where TContext : DbContext, new()
     {
@@ -16,7 +16,7 @@ namespace Core.DataAccessLayer.ImplementationsDal
             await ctx.SaveChangesAsync();
         }
 
-        public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate, params string[] includeList)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params string[] includeList)
         {
             using (var ctx = new TContext())
             {

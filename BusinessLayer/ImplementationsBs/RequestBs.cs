@@ -17,53 +17,63 @@ namespace BusinessLayer.ImplementationsBs
         }
         public async Task DeleteAsync(int id)
         {
-            var request = await _repo.FindByIdAsync(id);
+            var request = await _repo.GetByIdAsync(id);
             await _repo.DeleteAsync(request);
         }
 
-        public async Task<RequestGetDto> FindByIdAsync(int requestId, params string[] IncludeList)
+        public async Task<Request> GetByIdAsync(int Id, params string[] IncludeList)
         {
-            var request = await _repo.FindByIdAsync(requestId, IncludeList);
-            if (request != null)
+            var val = await _repo.GetByIdAsync(Id, IncludeList);
+            if (val != null)
             {
-                var dto = _mapper.Map<RequestGetDto>(request);
+                var dto = _mapper.Map<Request>(val);
                 return dto;
             }
-            else { throw new NotImplementedException(); }
+            throw new NotImplementedException();
         }
 
-        public async Task<List<RequestGetDto>> GetByProductId(int productId, params string[] IncludeList)
+        public async Task<List<Request>> GetCategoryNameAsync(string categoryName, params string[] IncludeList)
         {
-            var request = await _repo.GetByProductId(productId, IncludeList);
-            if (request.Count>0)
+            var val = await _repo.GetCategoryNameAsync(categoryName, IncludeList);
+            if (val.Count > 0)
             {
-                var requestList = _mapper.Map<List<RequestGetDto>>(request);
-                return requestList;
+                var valList = _mapper.Map<List<Request>>(val);
+                return valList;
             }
-            else { throw new NotImplementedException(); }
+            throw new NotImplementedException();
         }
 
-        public async Task<List<RequestGetDto>> GetByRequestType(string type, params string[] IncludeList)
+        public async Task<List<Request>> GetDescriptionAsync(string description, params string[] IncludeList)
         {
-            var request = await _repo.GetByRequestType(type, IncludeList);
-            if (request.Count > 0)
+            var val = await _repo.GetDescriptionAsync(description, IncludeList);
+            if (val.Count > 0)
             {
-                var requestList = _mapper.Map<List<RequestGetDto>>(request);
-                return requestList;
+                var valList = _mapper.Map<List<Request>>(val);
+                return valList;
             }
-            else { throw new NotImplementedException(); }
-            
+            throw new NotImplementedException();
         }
 
-        public async Task<List<RequestGetDto>> GetByUserId(int userId, params string[] IncludeList)
+        public async Task<List<Request>> GetStatusNameAsync(string statusName, params string[] IncludeList)
         {
-            var request = await _repo.GetByUserId(userId, IncludeList);
-            if (request.Count > 0)
+            var val = await _repo.GetStatusNameAsync(statusName, IncludeList);
+            if (val.Count > 0)
             {
-                var requestList = _mapper.Map<List<RequestGetDto>>(request);
-                return requestList;
+                var valList = _mapper.Map<List<Request>>(val);
+                return valList;
             }
-            else { throw new NotImplementedException(); }
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Request>> GetUserNameAsync(string userName, params string[] IncludeList)
+        {
+            var val = await _repo.GetUserNameAsync(userName, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<Request>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
         }
 
         public async Task<Request> InsertAsync(RequestGetDto dto)

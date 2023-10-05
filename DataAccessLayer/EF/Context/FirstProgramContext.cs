@@ -14,6 +14,8 @@ namespace DataAccessLayer.EF.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Authorize> Authorize { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
     }
 }
