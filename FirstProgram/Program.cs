@@ -94,7 +94,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IDepartmentBs, DepartmentBs>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IDepartmentBs, DepartmentBs>();
-
+builder.Services.AddScoped<IDepartmentBs, DepartmentBs>();
 
 
 
