@@ -12,11 +12,11 @@ namespace FirstProgram.Controllers
         {
             _productBs = productBs;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            await _productBs.GetByIdAsync(id);
-            return Ok("iyiyim");
+            var response= await _productBs.GetByIdAsync(id);
+            return Ok(response);
         }
     }
 }

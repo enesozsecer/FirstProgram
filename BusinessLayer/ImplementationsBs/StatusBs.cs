@@ -19,13 +19,13 @@ namespace BusinessLayer.ImplementationsBs
             _repo = repo;
             _mapper = mapper;
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var val = await _repo.GetByIdAsync(id);
             await _repo.DeleteAsync(val);
         }
 
-        public async Task<Status> GetByIdAsync(int Id, params string[] IncludeList)
+        public async Task<Status> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetByIdAsync(Id, IncludeList);
             if (val != null)

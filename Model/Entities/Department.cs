@@ -9,7 +9,11 @@ namespace Model.Entities
 {
     public class Department : IEntities
     {
-        public int ID { get; set; }
+        public Guid ID { get; set; }
         public string? Name { get; set; }
+
+        public List<User>? User { get; set; }
+        public Guid CompanyID { get; set; }
+        public Company? Company { get; set; }
     }
 }

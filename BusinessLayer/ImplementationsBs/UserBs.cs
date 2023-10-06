@@ -23,7 +23,7 @@ namespace BusinessLayer.ImplementationsBs
             _repo = repo; _mapper = mapper;
             _appSettings = appSettings.Value;
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var val = await _repo.GetByIdAsync(id);
             await _repo.DeleteAsync(val);
@@ -43,7 +43,7 @@ namespace BusinessLayer.ImplementationsBs
         }
 
 
-        public async Task<User> GetByIdAsync(int Id, params string[] IncludeList)
+        public async Task<User> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetByIdAsync(Id, IncludeList);
             if (val != null)
@@ -68,9 +68,9 @@ namespace BusinessLayer.ImplementationsBs
 
         
 
-        public async Task<List<User>> GetRoleNameAsync(string roleName, params string[] IncludeList)
+        public async Task<List<User>> GetRoleIdAsync(Guid Id, params string[] IncludeList)
         {
-            var val = await _repo.GetRoleNameAsync(roleName, IncludeList);
+            var val = await _repo.GetRoleIdAsync(Id, IncludeList);
             if (val.Count > 0)
             {
                 var valList = _mapper.Map<List<User>>(val);
@@ -79,9 +79,9 @@ namespace BusinessLayer.ImplementationsBs
             throw new NotImplementedException();
         }
 
-        public async Task<List<User>> GetDepartmentNameAsync(string departmentName, params string[] IncludeList)
+        public async Task<List<User>> GetDepartmentIdAsync(Guid Id, params string[] IncludeList)
         {
-            var val = await _repo.GetDepartmentNameAsync(departmentName, IncludeList);
+            var val = await _repo.GetDepartmentIdAsync(Id, IncludeList);
             if (val.Count > 0)
             {
                 var valList = _mapper.Map<List<User>>(val);
@@ -90,9 +90,9 @@ namespace BusinessLayer.ImplementationsBs
             throw new NotImplementedException();
         }
 
-        public async Task<List<User>> GetCompanyNameAsync(string companyName, params string[] IncludeList)
+        public async Task<List<User>> GetCompanyIdAsync(Guid Id, params string[] IncludeList)
         {
-            var val = await _repo.GetCompanyNameAsync(companyName, IncludeList);
+            var val = await _repo.GetCompanyIdAsync(Id, IncludeList);
             if (val.Count > 0)
             {
                 var valList = _mapper.Map<List<User>>(val);

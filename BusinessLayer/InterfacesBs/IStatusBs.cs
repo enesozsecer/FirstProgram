@@ -9,10 +9,10 @@ namespace BusinessLayer.InterfacesBs
 {
     public interface IStatusBs
     {
-        Task<Status> GetByIdAsync(int Id, params string[] IncludeList);
+        Task<Status> GetByIdAsync(Guid Id, params string[] IncludeList);
         Task<List<Status>> GetNameAsync(string name, params string[] IncludeList);
         Task<Status> InsertAsync(Status entity);
         Task<Status> UpdateAsync(Status entity);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Guid id);
     }
 }

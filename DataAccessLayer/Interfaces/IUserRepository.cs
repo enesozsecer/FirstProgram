@@ -10,10 +10,10 @@ namespace DataAccessLayer.Interfaces
 {
     public interface IUserRepository : BaseRepository<User>
     {
-        Task<User> GetByIdAsync(int Id, params string[] IncludeList);
+        Task<User> GetByIdAsync(Guid Id, params string[] IncludeList);
         Task<List<User>> GetNameAsync(string name, params string[] IncludeList);
-        Task<List<User>> GetRoleNameAsync(string roleName, params string[] IncludeList);
-        Task<List<User>> GetDepartmentNameAsync(string departmentName, params string[] IncludeList);
-        Task<List<User>> GetCompanyNameAsync(string companyName, params string[] IncludeList);
+        Task<List<User>> GetRoleIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<User>> GetDepartmentIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<User>> GetCompanyIdAsync(Guid Id, params string[] IncludeList);
     }
 }

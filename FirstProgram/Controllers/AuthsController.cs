@@ -18,6 +18,7 @@ namespace FirstProgram.Controllers
         [HttpPost]
         public async Task<IActionResult> Authenticate([FromBody] LoginDto dto)
         {
+
             var response = await _authBs.AuthenticateAsync(dto);
             if (response != null)
                 return Ok(response);

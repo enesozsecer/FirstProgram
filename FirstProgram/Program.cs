@@ -91,10 +91,13 @@ builder.Services.AddScoped<IStatusBs, StatusBs>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 builder.Services.AddScoped<IProductBs, ProductBs>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryBs, CategoryBs>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICompanyBs, CompanyBs>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IDepartmentBs, DepartmentBs>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IDepartmentBs, DepartmentBs>();
-builder.Services.AddScoped<IDepartmentBs, DepartmentBs>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
 
 
 

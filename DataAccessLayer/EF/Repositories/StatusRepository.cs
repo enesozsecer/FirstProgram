@@ -12,7 +12,7 @@ namespace DataAccessLayer.EF.Repositories
 {
     public class StatusRepository : BaseRepository<Status, FirstProgramContext>, IStatusRepository
     {
-        public async Task<Status> GetByIdAsync(int Id, params string[] IncludeList)
+        public async Task<Status> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             return await GetAsync(val => val.ID == Id, IncludeList);
         }

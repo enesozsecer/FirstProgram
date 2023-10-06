@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.Dtos.ProductDto
+namespace Model.Dtos.RequestDto
 {
-    public class ProductPostDto
+    internal class RequestPutDto
     {
-
     }
 }

@@ -7,7 +7,7 @@ namespace DataAccessLayer.EF.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-R04PVQ3\\SQLEXPRESS;database=FirstDb;trusted_connection=true;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("server=DESKTOP-R04PVQ3\\SQLEXPRESS;database=FirstDbm;trusted_connection=true;TrustServerCertificate=true;");
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -16,6 +16,7 @@ namespace DataAccessLayer.EF.Context
         public DbSet<Request> Requests { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Offer> Offers { get; set; }
 
     }
 }

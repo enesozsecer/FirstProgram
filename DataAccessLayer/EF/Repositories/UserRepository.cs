@@ -12,19 +12,19 @@ namespace DataAccessLayer.EF.Repositories
 {
     public class UserRepository : BaseRepository<User, FirstProgramContext>, IUserRepository
     {
-        public async Task<User> GetByIdAsync(int Id, params string[] IncludeList)
+        public async Task<User> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             return await GetAsync(val => val.ID == Id, IncludeList);
         }
 
-        public async Task<List<User>> GetCompanyNameAsync(string companyName, params string[] IncludeList)
+        public async Task<List<User>> GetCompanyIdAsync(Guid Id, params string[] IncludeList)
         {
-            return await GetAllAsync(val => val.CompanyName.Contains(companyName), IncludeList);
+            return await GetAllAsync(val => val.CompanyID==Id, IncludeList);
         }
 
-        public async Task<List<User>> GetDepartmentNameAsync(string departmentName, params string[] IncludeList)
+        public async Task<List<User>> GetDepartmentIdAsync(Guid Id, params string[] IncludeList)
         {
-            return await GetAllAsync(val => val.DepartmentName.Contains(departmentName), IncludeList);
+            return await GetAllAsync(val => val.DepartmentID == Id, IncludeList);
         }
 
         public async Task<List<User>> GetNameAsync(string name, params string[] IncludeList)
@@ -32,9 +32,9 @@ namespace DataAccessLayer.EF.Repositories
             return await GetAllAsync(val => val.Name.Contains(name), IncludeList);
         }
 
-        public async Task<List<User>> GetRoleNameAsync(string roleName, params string[] IncludeList)
+        public async Task<List<User>> GetRoleIdAsync(Guid Id, params string[] IncludeList)
         {
-            return await GetAllAsync(val => val.RoleName.Contains(roleName), IncludeList);
+            return await GetAllAsync(val => val.RoleID == Id, IncludeList);
         }
     }
 }

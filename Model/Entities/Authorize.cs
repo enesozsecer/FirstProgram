@@ -9,8 +9,9 @@ namespace Model.Entities
 {
     public class Authorize : IEntities
     {
-        public int ID { get; set; }
+        public Guid ID { get; set; }
         public string Role { get; set; }
+        public List<User> User { get; set; }
 
         //public Role Role { get; set; }
 

@@ -15,9 +15,9 @@ namespace FirstProgram.Controllers
             _requestBs = requestBs;
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var response=await _requestBs.GetByIdAsync(id);
+            var response=await _requestBs.GetByIdAsync(id,"User","Status","Category");
             return Ok(response);
         }
     }

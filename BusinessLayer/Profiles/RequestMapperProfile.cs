@@ -13,9 +13,10 @@ namespace BusinessLayer.Profiles
     {
         public RequestMapperProfile()
         {
-            CreateMap<Request, RequestGetDto>();
-            //    .ForMember(dst => dst.ProductName, X => X.MapFrom(src => src.Product.ProductName))
-            //    .ForMember(dst => dst.UserName, X => X.MapFrom(src => src.User.UserName));
+            CreateMap<Request, RequestGetDto>()
+                .ForMember(dst => dst.CategoryName, X => X.MapFrom(src => src.Category.Name))
+                .ForMember(dst => dst.UserName, X => X.MapFrom(src => src.User.Name))
+                .ForMember(dst => dst.StatusName, X => X.MapFrom(src => src.Status.Name));
         }
     }
 }

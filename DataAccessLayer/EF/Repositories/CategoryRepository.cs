@@ -7,7 +7,7 @@ namespace DataAccessLayer.EF.Repositories
 {
     public class CategoryRepository : BaseRepository<Category, FirstProgramContext>, ICategoryRepository
     {
-        public async Task<Category> GetByIdAsync(int Id, params string[] IncludeList)
+        public async Task<Category> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             return await GetAsync(val => val.ID == Id, IncludeList);
         }

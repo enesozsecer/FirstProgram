@@ -9,15 +9,16 @@ namespace Model.Entities
 {
     public class Request : IEntities
     {
-        public int ID { get; set; }
+        public Guid ID { get; set; }
         public string? Description { get; set; }
         public int? DesiredQuantity { get; set; }
-        public int? CategoryID { get; set; }
-        public int? UserID { get; set; }
-        public int? StatusID { get; set; }
-        public string? CategoryName { get; set; }
-        public string? UserName { get; set; }
-        public string? StatusName { get; set; }
+        public Guid? CategoryID { get; set; }
+        public Guid? UserID { get; set; }
+        public Guid? StatusID { get; set; }
+
+        public Category? Category { get; set; }
+        public User? User { get; set; }
+        public Status? Status { get; set; }
 
         //public enum Status
         //{

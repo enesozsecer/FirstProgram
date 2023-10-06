@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLayer.InterfacesBs;
 using DataAccessLayer.Interfaces;
+using Model.Dtos.CategoryDto;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,13 @@ namespace BusinessLayer.ImplementationsBs
             _repo = repo;
             _mapper = mapper;
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var val = await _repo.GetByIdAsync(id);
             await _repo.DeleteAsync(val);
         }
 
-        public async Task<Category> GetByIdAsync(int Id, params string[] IncludeList)
+        public async Task<Category> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetByIdAsync(Id, IncludeList);
             if (val != null)
@@ -47,7 +48,7 @@ namespace BusinessLayer.ImplementationsBs
             throw new NotImplementedException();
         }
 
-        public async Task<Category> InsertAsync(Category entity)
+        public async Task<Category> InsertAsync(CategoryPostDto entity)
         {
             var val = _mapper.Map<Category>(entity);
             var insertedUser = await _repo.InsertAsync(val);

@@ -20,13 +20,13 @@ namespace BusinessLayer.ImplementationsBs
             _repo = repo;
             _mapper = mapper;
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var product = await _repo.GetByIdAsync(id);
             await _repo.DeleteAsync(product);
         }
 
-        public async Task<Product> GetByIdAsync(int Id, params string[] IncludeList)
+        public async Task<Product> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetByIdAsync(Id, IncludeList);
             if (val != null)
@@ -37,9 +37,9 @@ namespace BusinessLayer.ImplementationsBs
             throw new NotImplementedException();
         }
 
-        public async Task<List<Product>> GetCategoryNameAsync(string CategoryName, params string[] IncludeList)
+        public async Task<List<Product>> GetCategoryIdAsync(Guid Id, params string[] IncludeList)
         {
-            var val = await _repo.GetCategoryNameAsync(CategoryName, IncludeList);
+            var val = await _repo.GetCategoryIdAsync(Id, IncludeList);
             if (val.Count > 0)
             {
                 var valList = _mapper.Map<List<Product>>(val);

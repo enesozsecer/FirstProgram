@@ -11,7 +11,7 @@ namespace DataAccessLayer.Interfaces
 {
     public interface IDepartmentRepository : BaseRepository<Department>
     {
-        Task<Department> GetByIdAsync(int Id, params string[] IncludeList);
+        Task<Department> GetByIdAsync(Guid Id, params string[] IncludeList);
         Task<List<Department>> GetNameAsync(string name, params string[] IncludeList);
     }
 }

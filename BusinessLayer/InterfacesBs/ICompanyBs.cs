@@ -9,7 +9,7 @@ namespace BusinessLayer.InterfacesBs
 {
     public interface ICompanyBs
     {
-        Task<Company> GetByIdAsync(int Id, params string[] IncludeList);
+        Task<Company> GetByIdAsync(Guid Id, params string[] IncludeList);
         Task<List<Company>> GetNameAsync(string name, params string[] IncludeList);
     }
 }

@@ -7,14 +7,14 @@ namespace DataAccessLayer.EF.Repositories
 {
     public class ProductRepository : BaseRepository<Product, FirstProgramContext>, IProductRepository
     {
-        public async Task<Product> GetByIdAsync(int Id, params string[] IncludeList)
+        public async Task<Product> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             return await GetAsync(val => val.ID == Id, IncludeList);
         }
 
-        public async Task<List<Product>> GetCategoryNameAsync(string CategoryName, params string[] IncludeList)
+        public async Task<List<Product>> GetCategoryIdAsync(Guid Id, params string[] IncludeList)
         {
-            return await GetAllAsync(val => val.CategoryName.Contains(CategoryName), IncludeList);
+            return await GetAllAsync(val => val.CategoryID==Id, IncludeList);
         }
 
         public async Task<List<Product>> GetNameAsync(string name, params string[] IncludeList)
