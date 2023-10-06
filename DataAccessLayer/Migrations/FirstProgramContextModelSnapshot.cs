@@ -149,9 +149,6 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("DesiredQuantity")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("OfferID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("StatusID")
                         .HasColumnType("uniqueidentifier");
 
@@ -161,8 +158,6 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("CategoryID");
-
-                    b.HasIndex("OfferID");
 
                     b.HasIndex("StatusID");
 
@@ -232,7 +227,7 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("Model.Entities.Offer", b =>
                 {
                     b.HasOne("Model.Entities.Product", "Product")
-                        .WithMany()
+                        .WithMany("Offer")
                         .HasForeignKey("ProductID");
 
                     b.Navigation("Product");
@@ -252,10 +247,6 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("Model.Entities.Category", "Category")
                         .WithMany("Request")
                         .HasForeignKey("CategoryID");
-
-                    b.HasOne("Model.Entities.Offer", null)
-                        .WithMany("Request")
-                        .HasForeignKey("OfferID");
 
                     b.HasOne("Model.Entities.Status", "Status")
                         .WithMany("Request")
@@ -311,9 +302,9 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Model.Entities.Offer", b =>
+            modelBuilder.Entity("Model.Entities.Product", b =>
                 {
-                    b.Navigation("Request");
+                    b.Navigation("Offer");
                 });
 
             modelBuilder.Entity("Model.Entities.Status", b =>

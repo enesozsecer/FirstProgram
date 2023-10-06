@@ -30,5 +30,17 @@ namespace FirstProgram.Controllers
             var response = await _userBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
+        [HttpPut("updateuser")]
+        public async Task<IActionResult> UpdateUser([FromBody] User dto)
+        {
+            var response = await _userBs.UpdateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = response.ID}, response);
+        }
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            await _userBs.DeleteAsync(id);
+            return Ok();
+        }
     }
 }

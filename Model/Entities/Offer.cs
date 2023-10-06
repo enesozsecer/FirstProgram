@@ -15,8 +15,6 @@ namespace Model.Entities
         public decimal? OffertPrice { get; set; }
 
 
-        public List<Request>? Request { get; set; }
-
 
         public Guid? ProductID { get; set; }
         public Product? Product { get; set; }

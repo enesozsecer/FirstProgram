@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccessLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class mig3 : Migration
+    public partial class mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -155,8 +155,7 @@ namespace DataAccessLayer.Migrations
                     DesiredQuantity = table.Column<int>(type: "int", nullable: true),
                     CategoryID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    StatusID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    OfferID = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    StatusID = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -165,11 +164,6 @@ namespace DataAccessLayer.Migrations
                         name: "FK_Requests_Categories_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
-                        principalColumn: "ID");
-                    table.ForeignKey(
-                        name: "FK_Requests_Offers_OfferID",
-                        column: x => x.OfferID,
-                        principalTable: "Offers",
                         principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_Requests_Statuses_StatusID",
@@ -204,11 +198,6 @@ namespace DataAccessLayer.Migrations
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Requests_OfferID",
-                table: "Requests",
-                column: "OfferID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Requests_StatusID",
                 table: "Requests",
                 column: "StatusID");
@@ -233,10 +222,13 @@ namespace DataAccessLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Offers");
+
+            migrationBuilder.DropTable(
                 name: "Requests");
 
             migrationBuilder.DropTable(
-                name: "Offers");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Statuses");
@@ -245,16 +237,13 @@ namespace DataAccessLayer.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Authorize");
 
             migrationBuilder.DropTable(
                 name: "Departments");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Company");

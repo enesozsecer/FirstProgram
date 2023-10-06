@@ -1,4 +1,5 @@
-﻿using BusinessLayer.InterfacesBs;
+﻿using BusinessLayer.ImplementationsBs;
+using BusinessLayer.InterfacesBs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.CategoryDto;
@@ -16,15 +17,31 @@ namespace FirstProgram.Controllers
         {
             _categoryBs = categoryBs;
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var response = await _categoryBs.GetByIdAsync(id);
+            return Ok(response);
+        }
         //[AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Merhaba([FromBody] CategoryPostDto dto)
+        [HttpPost("addnewcategory")]
+        public async Task<IActionResult> AddNewCategory([FromBody] CategoryPostDto dto)
         {
             dto.ID = Guid.NewGuid();
             var response = await _categoryBs.InsertAsync(dto);
-            if (response != null)
-                return Ok(response);
-            return BadRequest();
+            return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
+        }
+        [HttpPut("updateuser")]
+        public async Task<IActionResult> UpdateCategory([FromBody] CategoryPutDto dto)
+        {
+            var response = await _categoryBs.UpdateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
+        }
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> DeleteCategory(Guid id)
+        {
+            await _categoryBs.DeleteAsync(id);
+            return Ok();
         }
     }
 }

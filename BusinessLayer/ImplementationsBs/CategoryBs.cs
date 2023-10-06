@@ -55,7 +55,7 @@ namespace BusinessLayer.ImplementationsBs
             return insertedUser;
         }
 
-        public async Task<Category> UpdateAsync(Category entity)
+        public async Task<Category> UpdateAsync(CategoryPutDto entity)
         {
             var val = _mapper.Map<Category>(entity);
             var insertedUser = await _repo.UpdateAsync(val);

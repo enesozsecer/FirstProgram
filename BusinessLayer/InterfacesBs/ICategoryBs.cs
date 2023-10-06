@@ -13,7 +13,7 @@ namespace BusinessLayer.InterfacesBs
         Task<Category> GetByIdAsync(Guid Id, params string[] IncludeList);
         Task<List<Category>> GetNameAsync(string name, params string[] IncludeList);
         Task<Category> InsertAsync(CategoryPostDto entity);
-        Task<Category> UpdateAsync(Category entity);
+        Task<Category> UpdateAsync(CategoryPutDto entity);
         Task DeleteAsync(Guid id);
     }
 }
