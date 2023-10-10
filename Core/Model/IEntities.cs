@@ -8,5 +8,6 @@ namespace Core.Model
 {
     public interface IEntities
     {
+
     }
 }

@@ -18,7 +18,8 @@ namespace FirstProgram.Controllers
         {
             _companyBs = companyBs;
         }
-        [HttpGet("getallcompanies")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> GetCompanies()
         {
             var response = await _companyBs.GetCompaniesAsync();
@@ -26,6 +27,7 @@ namespace FirstProgram.Controllers
         }
 
         [HttpGet("{id}")]
+        [Route("[action]/{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _companyBs.GetByIdAsync(id);

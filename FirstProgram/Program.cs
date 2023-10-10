@@ -99,6 +99,8 @@ builder.Services.AddScoped<IDepartmentBs, DepartmentBs>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IAuthenticationBs, AuthenticationBs>();
 builder.Services.AddScoped<IAuthenticateRepository, AuthenticateRepository>();
+builder.Services.AddScoped<IOfferBs, OfferBs>();
+builder.Services.AddScoped<IOfferRepository, OfferRepository>();
 
 
 
