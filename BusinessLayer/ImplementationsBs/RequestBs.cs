@@ -2,6 +2,7 @@
 using BusinessLayer.InterfacesBs;
 using DataAccessLayer.Interfaces;
 using Model.Dtos.RequestDto;
+using Model.Dtos.StatusDto;
 using Model.Entities;
 
 namespace BusinessLayer.ImplementationsBs
@@ -32,62 +33,75 @@ namespace BusinessLayer.ImplementationsBs
             throw new NotImplementedException();
         }
 
-        public async Task<List<Request>> GetCategoryIdAsync(Guid Id, params string[] IncludeList)
+        public async Task<List<RequestGetDto>> GetCategoryIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetCategoryIdAsync(Id, IncludeList);
             if (val.Count > 0)
             {
-                var valList = _mapper.Map<List<Request>>(val);
+                var valList = _mapper.Map<List<RequestGetDto>>(val);
                 return valList;
             }
             throw new NotImplementedException();
         }
 
-        public async Task<List<Request>> GetDescriptionAsync(string description, params string[] IncludeList)
+        public async Task<List<RequestGetDto>> GetDescriptionAsync(string description, params string[] IncludeList)
         {
             var val = await _repo.GetDescriptionAsync(description, IncludeList);
             if (val.Count > 0)
             {
-                var valList = _mapper.Map<List<Request>>(val);
+                var valList = _mapper.Map<List<RequestGetDto>>(val);
                 return valList;
             }
             throw new NotImplementedException();
         }
 
-        public async Task<List<Request>> GetStatusIdAsync(Guid Id, params string[] IncludeList)
+        public async Task<List<RequestGetDto>> GetRequestsAsync(params string[] IncludeList)
+        {
+            var val = await _repo.GetAllAsync(includeList: IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<RequestGetDto>>(val);
+
+                return valList;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<RequestGetDto>> GetStatusIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetStatusIdAsync(Id, IncludeList);
             if (val.Count > 0)
             {
-                var valList = _mapper.Map<List<Request>>(val);
+                var valList = _mapper.Map<List<RequestGetDto>>(val);
                 return valList;
             }
             throw new NotImplementedException();
         }
 
-        public async Task<List<Request>> GetUserIdAsync(Guid Id, params string[] IncludeList)
+        public async Task<List<RequestGetDto>> GetUserIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetUserIdAsync(Id, IncludeList);
             if (val.Count > 0)
             {
-                var valList = _mapper.Map<List<Request>>(val);
+                var valList = _mapper.Map<List<RequestGetDto>>(val);
                 return valList;
             }
             throw new NotImplementedException();
         }
 
-        public async Task<Request> InsertAsync(Request dto)
+        public async Task<Request> InsertAsync(RequestPostDto dto)
         {
-            var request = _mapper.Map<Request>(dto);
-            var insertedRequest = await _repo.InsertAsync(request);
-            return insertedRequest;
+            var val = _mapper.Map<Request>(dto);
+            var insertedVal = await _repo.InsertAsync(val);
+            return insertedVal;
         }
 
-        public async Task<Request> UpdateAsync(Request dto)
+        public async Task<Request> UpdateAsync(RequestPutDto dto)
         {
-            var request = _mapper.Map<Request>(dto);
-            var updatedRequest = await _repo.UpdateAsync(request);
-            return updatedRequest;
+            var val = _mapper.Map<Request>(dto);
+            var updatedVal = await _repo.UpdateAsync(val);
+            return updatedVal;
         }
     }
 }

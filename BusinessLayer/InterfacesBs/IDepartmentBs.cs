@@ -1,4 +1,6 @@
-﻿using Model.Entities;
+﻿using Model.Dtos.DepartmentDto;
+using Model.Dtos.UserDto;
+using Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,11 @@ namespace BusinessLayer.InterfacesBs
 {
     public interface IDepartmentBs
     {
-        Task<Department> GetByIdAsync(Guid Id, params string[] IncludeList);
-        Task<List<Department>> GetNameAsync(string name, params string[] IncludeList);
-        Task<Department> InsertAsync(Department entity);
-        Task<Department> UpdateAsync(Department entity);
+        Task<List<DepartmentGetDto>> GetDepartmentsAsync(params string[] IncludeList);
+        Task<DepartmentGetDto> GetByIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<DepartmentGetDto>> GetNameAsync(string name, params string[] IncludeList);
+        Task<Department> InsertAsync(DepartmentPostDto entity);
+        Task<Department> UpdateAsync(DepartmentPutDto entity);
         Task DeleteAsync(Guid id);
     }
 }

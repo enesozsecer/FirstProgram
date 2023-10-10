@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.Dtos.AuthorizeDto
+namespace Model.Dtos.StatusDto
 {
-    public class AuthorizePostDto
+    public class StatusGetDto
     {
         public Guid ID { get; set; }
-        public string Role { get; set; }
+        public string? Name { get; set; }
+
     }
 }

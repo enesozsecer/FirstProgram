@@ -10,9 +10,9 @@ namespace Model.Entities
     public class Offer : IEntities
     {
         public Guid ID { get; set; }
-        public string? ProductName { get; set; }
-        public short? ProductAmount { get; set; }
-        public decimal? OffertPrice { get; set; }
+        public string? Name { get; set; }
+        public short? OfferAmount { get; set; }
+        public decimal? OfferPrice { get; set; }
 
 
 

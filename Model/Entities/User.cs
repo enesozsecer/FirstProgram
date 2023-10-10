@@ -9,16 +9,20 @@ namespace Model.Entities
 {
     public class User : IEntities
     {
+
         public Guid ID { get; set; }
         public string? Name { get; set; }
         public string? Password { get; set; }
-        public Guid? RoleID { get; set; }
-        public Guid? DepartmentID { get; set; }
-        public Guid? CompanyID { get; set; }
-
+        public string Email { get; set; }
+        
+       
         public List<Request>? Request { get; set; }
+        public Guid? DepartmentID { get; set; }
         public Department? Department { get; set; }
-        public Authorize Authorize { get; set; }
+        public Guid? AuthenticateID { get; set; }
+        public Authenticate Authenticate { get; set; }
+        public Guid? CompanyID { get; set; }
+        public Company? Company { get; set; }
 
     }
 }

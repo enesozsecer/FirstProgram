@@ -17,9 +17,9 @@ namespace DataAccessLayer.EF.Repositories
             return await GetAsync(val => val.ID == Id, IncludeList);
         }
 
-        public async Task<List<User>> GetCompanyIdAsync(Guid Id, params string[] IncludeList)
+        public async Task<List<User>> GetCompanyIdAsync(Guid Id, params string[] IncludeList)//
         {
-            return await GetAllAsync(val => val.CompanyID==Id, IncludeList);
+            return await GetAllAsync(val => val.DepartmentID==Id, IncludeList);
         }
 
         public async Task<List<User>> GetDepartmentIdAsync(Guid Id, params string[] IncludeList)
@@ -34,7 +34,7 @@ namespace DataAccessLayer.EF.Repositories
 
         public async Task<List<User>> GetRoleIdAsync(Guid Id, params string[] IncludeList)
         {
-            return await GetAllAsync(val => val.RoleID == Id, IncludeList);
+            return await GetAllAsync(val => val.AuthenticateID == Id, IncludeList);
         }
     }
 }

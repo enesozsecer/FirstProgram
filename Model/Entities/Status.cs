@@ -12,6 +12,7 @@ namespace Model.Entities
         public Guid ID { get; set; }
         public string? Name { get; set; }
 
+
         public List<Request>? Request { get; set; }
     }
 }

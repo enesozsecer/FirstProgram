@@ -1,4 +1,6 @@
-﻿using Model.Entities;
+﻿using Model.Dtos.StatusDto;
+using Model.Dtos.UserDto;
+using Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,11 @@ namespace BusinessLayer.InterfacesBs
 {
     public interface IStatusBs
     {
-        Task<Status> GetByIdAsync(Guid Id, params string[] IncludeList);
-        Task<List<Status>> GetNameAsync(string name, params string[] IncludeList);
-        Task<Status> InsertAsync(Status entity);
-        Task<Status> UpdateAsync(Status entity);
+        Task<List<StatusGetDto>> GetStatusAsync(params string[] IncludeList);
+        Task<StatusGetDto> GetByIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<StatusGetDto>> GetNameAsync(string name, params string[] IncludeList);
+        Task<Status> InsertAsync(StatusPostDto entity);
+        Task<Status> UpdateAsync(StatusPutDto entity);
         Task DeleteAsync(Guid id);
     }
 }

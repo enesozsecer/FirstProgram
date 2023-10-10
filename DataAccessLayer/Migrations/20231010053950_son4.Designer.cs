@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(FirstProgramContext))]
-    [Migration("20231006143605_mig")]
-    partial class mig
+    [Migration("20231010053950_son4")]
+    partial class son4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,19 +25,19 @@ namespace DataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Model.Entities.Authorize", b =>
+            modelBuilder.Entity("Model.Entities.Authenticate", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Role")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Authorize");
+                    b.ToTable("Authentications");
                 });
 
             modelBuilder.Entity("Model.Entities.Category", b =>
@@ -65,7 +65,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Company");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("Model.Entities.Department", b =>
@@ -93,17 +93,17 @@ namespace DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal?>("OffertPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<short?>("ProductAmount")
+                    b.Property<short?>("OfferAmount")
                         .HasColumnType("smallint");
+
+                    b.Property<decimal?>("OfferPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("ProductID")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -189,7 +189,7 @@ namespace DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuthorizeID")
+                    b.Property<Guid?>("AuthenticateID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CompanyID")
@@ -198,18 +198,21 @@ namespace DataAccessLayer.Migrations
                     b.Property<Guid?>("DepartmentID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("RoleID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("AuthorizeID");
+                    b.HasIndex("AuthenticateID");
+
+                    b.HasIndex("CompanyID");
 
                     b.HasIndex("DepartmentID");
 
@@ -268,22 +271,26 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Model.Entities.User", b =>
                 {
-                    b.HasOne("Model.Entities.Authorize", "Authorize")
+                    b.HasOne("Model.Entities.Authenticate", "Authenticate")
                         .WithMany("User")
-                        .HasForeignKey("AuthorizeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthenticateID");
+
+                    b.HasOne("Model.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyID");
 
                     b.HasOne("Model.Entities.Department", "Department")
                         .WithMany("User")
                         .HasForeignKey("DepartmentID");
 
-                    b.Navigation("Authorize");
+                    b.Navigation("Authenticate");
+
+                    b.Navigation("Company");
 
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("Model.Entities.Authorize", b =>
+            modelBuilder.Entity("Model.Entities.Authenticate", b =>
                 {
                     b.Navigation("User");
                 });

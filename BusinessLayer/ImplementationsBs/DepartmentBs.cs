@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLayer.InterfacesBs;
 using DataAccessLayer.Interfaces;
+using Model.Dtos.DepartmentDto;
+using Model.Dtos.ProductDto;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -25,40 +27,53 @@ namespace BusinessLayer.ImplementationsBs
             await _repo.DeleteAsync(val);
         }
 
-        public async Task<Department> GetByIdAsync(Guid Id, params string[] IncludeList)
+        public async Task<DepartmentGetDto> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetByIdAsync(Id, IncludeList);
             if (val != null)
             {
-                var dto = _mapper.Map<Department>(val);
+                var dto = _mapper.Map<DepartmentGetDto>(val);
                 return dto;
             }
             throw new NotImplementedException();
         }
 
-        public async Task<List<Department>> GetNameAsync(string name, params string[] IncludeList)
+        public async Task<List<DepartmentGetDto>> GetDepartmentsAsync(params string[] IncludeList)
+        {
+            var val = await _repo.GetAllAsync(includeList: IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<DepartmentGetDto>>(val);
+
+                return valList;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<DepartmentGetDto>> GetNameAsync(string name, params string[] IncludeList)
         {
             var val = await _repo.GetNameAsync(name, IncludeList);
             if (val.Count > 0)
             {
-                var valList = _mapper.Map<List<Department>>(val);
+                var valList = _mapper.Map<List<DepartmentGetDto>>(val);
                 return valList;
             }
             throw new NotImplementedException();
         }
 
-        public async Task<Department> InsertAsync(Department entity)
+        public async Task<Department> InsertAsync(DepartmentPostDto entity)
         {
             var val = _mapper.Map<Department>(entity);
-            var insertedUser = await _repo.InsertAsync(val);
-            return insertedUser;
+            var insertedVal = await _repo.InsertAsync(val);
+            return insertedVal;
         }
 
-        public async Task<Department> UpdateAsync(Department entity)
+        public async Task<Department> UpdateAsync(DepartmentPutDto entity)
         {
             var val = _mapper.Map<Department>(entity);
-            var insertedUser = await _repo.UpdateAsync(val);
-            return insertedUser;
+            var updatedVal = await _repo.UpdateAsync(val);
+            return updatedVal;
         }
     }
 }

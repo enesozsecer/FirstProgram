@@ -3,6 +3,7 @@ using BusinessLayer.InterfacesBs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.ProductDto;
+using Model.Dtos.UserDto;
 using Model.Dtos.UserLoginDto;
 using Model.Entities;
 
@@ -17,26 +18,34 @@ namespace FirstProgram.Controllers
         {
             _userBs = userBs;
         }
+        [HttpGet("getalluser")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var response = await _userBs.GetUsersAsync("Authenticate", "Department", "Company");
+            return Ok(response);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var response = await _userBs.GetByIdAsync(id);
+            var response = await _userBs.GetByIdAsync(id, "Authenticate", "Department", "Company");
             return Ok(response);
         }
         [HttpPost("addnewuser")]
-        public async Task<IActionResult> AddNewUser([FromBody] User dto)
+        public async Task<IActionResult> AddNewUser([FromBody] UserPostDto dto)
         {
+
+            dto.ID = Guid.NewGuid();
             var response = await _userBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
         [HttpPut("updateuser")]
-        public async Task<IActionResult> UpdateUser([FromBody] User dto)
+        public async Task<IActionResult> UpdateUser([FromBody] UserPutDto dto)
         {
             var response = await _userBs.UpdateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = response.ID}, response);
+            return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpDelete("Delete")]
+        [HttpDelete("deleteuser")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             await _userBs.DeleteAsync(id);

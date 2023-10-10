@@ -1,4 +1,5 @@
 ﻿using Model.Dtos.RequestDto;
+using Model.Dtos.UserDto;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,14 @@ namespace BusinessLayer.InterfacesBs
 {
     public interface IRequestBs
     {
+        Task<List<RequestGetDto>> GetRequestsAsync(params string[] IncludeList);
         Task<RequestGetDto> GetByIdAsync(Guid Id, params string[] IncludeList);
-        Task<List<Request>> GetDescriptionAsync(string description, params string[] IncludeList);
-        Task<List<Request>> GetCategoryIdAsync(Guid Id, params string[] IncludeList);
-        Task<List<Request>> GetUserIdAsync(Guid Id, params string[] IncludeList);
-        Task<List<Request>> GetStatusIdAsync(Guid Id, params string[] IncludeList);
-        Task<Request> InsertAsync(Request entity);
-        Task<Request> UpdateAsync(Request entity);
+        Task<List<RequestGetDto>> GetDescriptionAsync(string description, params string[] IncludeList);
+        Task<List<RequestGetDto>> GetCategoryIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<RequestGetDto>> GetUserIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<RequestGetDto>> GetStatusIdAsync(Guid Id, params string[] IncludeList);
+        Task<Request> InsertAsync(RequestPostDto entity);
+        Task<Request> UpdateAsync(RequestPutDto entity);
         Task DeleteAsync(Guid id);
     }
 }

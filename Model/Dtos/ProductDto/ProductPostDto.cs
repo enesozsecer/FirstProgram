@@ -8,6 +8,11 @@ namespace Model.Dtos.ProductDto
 {
     public class ProductPostDto
     {
+        public Guid ID { get; set; }
+        public string? Name { get; set; }
+        public short? StockQuantity { get; set; }
+        public decimal? ProductPrice { get; set; }
 
+        public Guid? CategoryID { get; set; }
     }
 }

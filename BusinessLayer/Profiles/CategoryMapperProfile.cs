@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Profiles
 {
-    public class CategoryMapperProfile:Profile
+    public class CategoryMapperProfile : Profile
     {
         public CategoryMapperProfile()
         {
+            CreateMap<Category, CategoryGetDto>();
             CreateMap<CategoryPostDto, Category>();
+            CreateMap<CategoryPutDto, Category>();
         }
     }
 }

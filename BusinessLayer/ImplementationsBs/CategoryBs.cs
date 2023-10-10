@@ -2,6 +2,7 @@
 using BusinessLayer.InterfacesBs;
 using DataAccessLayer.Interfaces;
 using Model.Dtos.CategoryDto;
+using Model.Dtos.CompanyDto;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.ImplementationsBs
 {
-    public class CategoryBs:ICategoryBs
+    public class CategoryBs : ICategoryBs
     {
         private readonly ICategoryRepository _repo;
         private readonly IMapper _mapper;
@@ -26,23 +27,36 @@ namespace BusinessLayer.ImplementationsBs
             await _repo.DeleteAsync(val);
         }
 
-        public async Task<Category> GetByIdAsync(Guid Id, params string[] IncludeList)
+        public async Task<CategoryGetDto> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetByIdAsync(Id, IncludeList);
             if (val != null)
             {
-                var dto = _mapper.Map<Category>(val);
+                var dto = _mapper.Map<CategoryGetDto>(val);
                 return dto;
             }
             throw new NotImplementedException();
         }
 
-        public async Task<List<Category>> GetNameAsync(string name, params string[] IncludeList)
+        public async Task<List<CategoryGetDto>> GetCategoriesAsync(params string[] IncludeList)
+        {
+            var val = await _repo.GetAllAsync(includeList: IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<CategoryGetDto>>(val);
+
+                return valList;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<CategoryGetDto>> GetNameAsync(string name, params string[] IncludeList)
         {
             var val = await _repo.GetNameAsync(name, IncludeList);
             if (val.Count > 0)
             {
-                var valList = _mapper.Map<List<Category>>(val);
+                var valList = _mapper.Map<List<CategoryGetDto>>(val);
                 return valList;
             }
             throw new NotImplementedException();
@@ -51,15 +65,15 @@ namespace BusinessLayer.ImplementationsBs
         public async Task<Category> InsertAsync(CategoryPostDto entity)
         {
             var val = _mapper.Map<Category>(entity);
-            var insertedUser = await _repo.InsertAsync(val);
-            return insertedUser;
+            var insertedVal = await _repo.InsertAsync(val);
+            return insertedVal;
         }
 
         public async Task<Category> UpdateAsync(CategoryPutDto entity)
         {
             var val = _mapper.Map<Category>(entity);
-            var insertedUser = await _repo.UpdateAsync(val);
-            return insertedUser;
+            var updatedVal = await _repo.UpdateAsync(val);
+            return updatedVal;
         }
     }
 }

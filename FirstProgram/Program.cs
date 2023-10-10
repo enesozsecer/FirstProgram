@@ -97,6 +97,8 @@ builder.Services.AddScoped<ICompanyBs, CompanyBs>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IDepartmentBs, DepartmentBs>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IAuthenticationBs, AuthenticationBs>();
+builder.Services.AddScoped<IAuthenticateRepository, AuthenticateRepository>();
 
 
 

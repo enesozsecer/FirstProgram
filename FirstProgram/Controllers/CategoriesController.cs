@@ -17,6 +17,12 @@ namespace FirstProgram.Controllers
         {
             _categoryBs = categoryBs;
         }
+        [HttpGet("getallcategories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var response = await _categoryBs.GetCategoriesAsync();
+            return Ok(response);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
@@ -31,13 +37,13 @@ namespace FirstProgram.Controllers
             var response = await _categoryBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpPut("updateuser")]
+        [HttpPut("updatecategory")]
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryPutDto dto)
         {
             var response = await _categoryBs.UpdateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpDelete("Delete")]
+        [HttpDelete("deletecategory")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
             await _categoryBs.DeleteAsync(id);

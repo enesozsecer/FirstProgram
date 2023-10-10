@@ -13,10 +13,12 @@ namespace BusinessLayer.Profiles
     {
         public RequestMapperProfile()
         {
-            CreateMap<Request, RequestGetDto>()
-                .ForMember(dst => dst.CategoryName, X => X.MapFrom(src => src.Category.Name))
-                .ForMember(dst => dst.UserName, X => X.MapFrom(src => src.User.Name))
-                .ForMember(dst => dst.StatusName, X => X.MapFrom(src => src.Status.Name));
+            CreateMap<Request, RequestGetDto>();
+                //.ForMember(dst => dst.CategoryName, X => X.MapFrom(src => src.Category.Name))
+                //.ForMember(dst => dst.UserName, X => X.MapFrom(src => src.User.Name))
+                //.ForMember(dst => dst.StatusName, X => X.MapFrom(src => src.Status.Name));
+            CreateMap<RequestPostDto, Request>();
+            CreateMap<RequestPutDto, Request>();
         }
     }
 }
