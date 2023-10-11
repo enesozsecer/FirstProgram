@@ -1,15 +1,12 @@
-﻿using Azure;
-using FirstProgramUI.Models.CompanyModel;
+﻿using FirstProgramUI.Models.DepartmentModel;
+using FirstProgramUI.Models.UserModel;
 using Microsoft.AspNetCore.Mvc;
-using Model.Dtos.CompanyDto;
-using Model.Dtos.ProductDto;
-using Model.Entities;
-using Newtonsoft.Json;
-
+using Model.Dtos.DepartmentDto;
+using Model.Dtos.UserDto;
 
 namespace FirstProgramUI.Controllers
 {
-    public class CompaniesController : Controller
+    public class DepartmentsController : Controller
     {
         #region Defines
         private readonly HttpClient _httpClient;
@@ -17,7 +14,7 @@ namespace FirstProgramUI.Controllers
         #endregion
 
         #region Constructor
-        public CompaniesController(HttpClient httpClient)
+        public DepartmentsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -26,7 +23,7 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var val = await _httpClient.GetFromJsonAsync<List<CompanyGetDto>>(url + "Companies/GetCompanies");
+            var val = await _httpClient.GetFromJsonAsync<List<DepartmentGetDto>>(url + "Departments/GetDepartments");
             return View(val);
         }
 
@@ -37,14 +34,15 @@ namespace FirstProgramUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CompanyViewModel addViewModel)
+        public async Task<IActionResult> Add(DepartmentGetViewModel addViewModel)
         {
-            Company postDto = new Company()
+            DepartmentGetDto postDto = new DepartmentGetDto()
             {
                 ID = addViewModel.ID,
                 Name = addViewModel.Name,
+                CompanyName= addViewModel.CompanyName,
             };
-            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Companies/AddNewCompany", postDto);
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Departments/AddNewDepartment", postDto);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -54,26 +52,27 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {
-            var val = await _httpClient.GetFromJsonAsync<CompanyGetDto>(url + "Companies/GetById/" + id);
-
-            CompanyViewModel updateViewModels = new CompanyViewModel()
+            var val = await _httpClient.GetFromJsonAsync<DepartmentPutDto>(url + "Departments/GetById/" + id);
+            DepartmentUpdateViewModel updateViewModels = new DepartmentUpdateViewModel()
             {
                 ID = val.ID,
                 Name = val.Name,
+                CompanyID = val.CompanyID,
+
             };
 
             return View(updateViewModels);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(Guid id, CompanyViewModel updateViewModels)
+        public async Task<IActionResult> Update(Guid id, DepartmentUpdateViewModel updateViewModels)
         {
-
-            CompanyPutDto putDto = new CompanyPutDto()
+            DepartmentPutDto putDto = new DepartmentPutDto()
             {
                 Name = updateViewModels.Name,
+                CompanyID= updateViewModels.CompanyID,
                 ID = id
             };
-            HttpResponseMessage httpResponseMessage = await _httpClient.PutAsJsonAsync(url + "Companies/UpdateCompany", putDto);
+            HttpResponseMessage httpResponseMessage = await _httpClient.PutAsJsonAsync(url + "Departments/UpdateDepartment", putDto);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -83,12 +82,13 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var val = await _httpClient.GetFromJsonAsync<CompanyGetDto>(url + "Companies/GetById/" + id);
+            var val = await _httpClient.GetFromJsonAsync<DepartmentGetViewModel>(url + "Departments/GetById/" + id);
 
-            CompanyViewModel deleteViewModel = new CompanyViewModel()
+            DepartmentGetViewModel deleteViewModel = new DepartmentGetViewModel()
             {
                 ID = val.ID,
                 Name = val.Name,
+                CompanyName = val.CompanyName,
             };
 
             return View(deleteViewModel);
@@ -96,7 +96,7 @@ namespace FirstProgramUI.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _httpClient.DeleteAsync(url + "Companies/DeleteCompany/" + id);
+            await _httpClient.DeleteAsync(url + "Departments/DeleteDepartment/" + id);
             return RedirectToAction("Index");
         }
     }

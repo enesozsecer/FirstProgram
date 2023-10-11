@@ -1,0 +1,43 @@
+﻿@model FirstProgramUI.Models.RequestModel.RequestUpdateViewModel
+@{
+    ViewData["Title"] = "Update";
+    //Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h1>Güncelle</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" />
+            <div class="form-group">
+                <label asp-for="Description">Departman Adı</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DesiredQuantity">Şirket Adı</label>
+                <input asp-for="DesiredQuantity" class="form-control" />
+                <span asp-validation-for="DesiredQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryID">Şirket Adı</label>
+                <input asp-for="CategoryID" class="form-control" />
+                <span asp-validation-for="CategoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserID">Şirket Adı</label>
+                <input asp-for="UserID" class="form-control" />
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusID">Şirket Adı</label>
+                <input asp-for="StatusID" class="form-control" />
+                <span asp-validation-for="StatusID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Güncelle" class="btn btn-primary" />
+                <a class="btn btn-info" asp-action="Index">Listeye geri dön</a>
+            </div>
+        </form>
+    </div>
+</div>

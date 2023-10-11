@@ -1,15 +1,16 @@
-﻿@model IEnumerable<Model.Dtos.CompanyDto.CompanyGetDto>
+﻿@model IEnumerable<Model.Dtos.DepartmentDto.DepartmentGetDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<h1>Şirketler</h1>
+<h1>Departmanlar</h1>
 <a class="btn btn-primary mb-3" asp-action="Add">Ekle</a>
 
 <table class="table table-bordered">
     <thead>
         <tr>
+            <td>Departman Adı</td>
             <td>Şirket Adı</td>
             <td>İşlemler</td>
         </tr>
@@ -19,6 +20,7 @@
         {
             <tr>
                 <td>@item.Name</td>
+                <td>@item.CompanyName</td>
                 <td>
                     <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>

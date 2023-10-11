@@ -10,6 +10,6 @@ namespace Model.Dtos.DepartmentDto
     {
         public Guid ID { get; set; }
         public string? Name { get; set; }
-        public Guid CompanyID { get; set; }
+        public Guid? CompanyID { get; set; }
     }
 }

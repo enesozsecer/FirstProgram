@@ -18,20 +18,23 @@ namespace FirstProgram.Controllers
         {
             _userBs = userBs;
         }
-        [HttpGet("getalluser")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> GetUsers()
         {
             var response = await _userBs.GetUsersAsync("Authenticate", "Department", "Company");
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _userBs.GetByIdAsync(id, "Authenticate", "Department", "Company");
             return Ok(response);
         }
-        [HttpPost("addnewuser")]
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> AddNewUser([FromBody] UserPostDto dto)
         {
 
@@ -39,13 +42,15 @@ namespace FirstProgram.Controllers
             var response = await _userBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpPut("updateuser")]
+        [HttpPut]
+        [Route("[action]")]
         public async Task<IActionResult> UpdateUser([FromBody] UserPutDto dto)
         {
             var response = await _userBs.UpdateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpDelete("deleteuser")]
+        [HttpDelete]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             await _userBs.DeleteAsync(id);

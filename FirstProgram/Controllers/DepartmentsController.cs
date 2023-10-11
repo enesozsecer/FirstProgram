@@ -16,33 +16,38 @@ namespace FirstProgram.Controllers
         {
             _departmentBs = departmentBs;
         }
-        [HttpGet("getalldepartments")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> GetDepartments()
         {
             var response = await _departmentBs.GetDepartmentsAsync("Company");
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _departmentBs.GetByIdAsync(id, "Company");
             return Ok(response);
         }
-        [HttpPost("addnewdepartment")]
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> AddNewDepartment([FromBody] DepartmentPostDto dto)
         {
             dto.ID = Guid.NewGuid();
             var response = await _departmentBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpPut("updatedepartment")]
+        [HttpPut]
+        [Route("[action]")]
         public async Task<IActionResult> UpdateDepartment([FromBody] DepartmentPutDto dto)
         {
             var response = await _departmentBs.UpdateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpDelete("deletedepartment")]
+        [HttpDelete]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> DeleteDepartment(Guid id)
         {
             await _departmentBs.DeleteAsync(id);
