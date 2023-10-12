@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.EF.Context;
 using FirstProgramUI.Models.CompanyModel;
+using FirstProgramUI.Models.RequestModel;
 using FirstProgramUI.Models.UserModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace FirstProgramUI.Controllers
         {
             _httpClient = httpClient;
         }
-
+        FirstProgramContext db = new FirstProgramContext();
         #endregion
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -33,11 +34,18 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            return View();
+            var val = new UserGetModel
+            {
+                Company = db.Companies.ToList(),
+                User = db.Users.ToList(),
+                Authenticate = db.Authentications.ToList(),
+                Department = db.Departments.ToList(),
+            };
+            return View(val);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(UserGetViewModel addViewModel)
+        public async Task<IActionResult> Add(UserGetModel addViewModel)
         {
             UserGetDto postDto = new UserGetDto()
             {
@@ -60,8 +68,12 @@ namespace FirstProgramUI.Controllers
         public async Task<IActionResult> Update(Guid id)
         {
             var val = await _httpClient.GetFromJsonAsync<UserPutDto>(url + "Users/GetById/" + id);
-            UserUpdateViewModel updateViewModels = new UserUpdateViewModel()
+            UserGetModel updateViewModels = new UserGetModel()
             {
+                Company = db.Companies.ToList(),
+                User = db.Users.ToList(),
+                Authenticate = db.Authentications.ToList(),
+                Department = db.Departments.ToList(),
                 ID = val.ID,
                 Name = val.Name,
                 Password = val.Password,
@@ -75,7 +87,7 @@ namespace FirstProgramUI.Controllers
             return View(updateViewModels);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(Guid id, UserUpdateViewModel updateViewModels)
+        public async Task<IActionResult> Update(Guid id, UserGetModel updateViewModels)
         {
             UserPutDto putDto = new UserPutDto()
             {
@@ -97,9 +109,9 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var val = await _httpClient.GetFromJsonAsync<UserGetViewModel>(url + "Users/GetById/" + id);
+            var val = await _httpClient.GetFromJsonAsync<UserGetModel>(url + "Users/GetById/" + id);
 
-            UserGetViewModel deleteViewModel = new UserGetViewModel()
+            UserGetModel deleteViewModel = new UserGetModel()
             {
                 ID = val.ID,
                 Name = val.Name,

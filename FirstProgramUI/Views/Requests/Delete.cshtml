@@ -1,4 +1,4 @@
-﻿@model FirstProgramUI.Models.RequestModel.RequestGetViewModel
+﻿@model FirstProgramUI.Models.RequestModel.RequestGetModel
 @{
     ViewData["Title"] = "Delete";
     //Layout = "~/Views/Shared/Layout.cshtml";
@@ -6,7 +6,7 @@
 
 <h1>Sil</h1>
 <h6 class="text-danger">
-    Bu departmanı silmek istediğinizden emin misiniz?
+    Bu talebi silmek istediğinizden emin misiniz?
 </h6>
 <div class="row">
     <div class="col-md-4">
@@ -14,27 +14,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger" />
 
             <div class="form-group">
-                <label asp-for="Description">Departman Adı</label>
+                <label asp-for="Description">Açıklama</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DesiredQuantity">Şirket Adı</label>
+                <label asp-for="DesiredQuantity">Miktar</label>
                 <input asp-for="DesiredQuantity" class="form-control" />
                 <span asp-validation-for="DesiredQuantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategoryName">Şirket Adı</label>
+                <label asp-for="CategoryName">Kategori Adı</label>
                 <input asp-for="CategoryName" class="form-control" />
                 <span asp-validation-for="CategoryName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserName">Şirket Adı</label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-                        <div class="form-group">
-                <label asp-for="StatusName">Şirket Adı</label>
+                <label asp-for="StatusName">Durumu</label>
                 <input asp-for="StatusName" class="form-control" />
                 <span asp-validation-for="StatusName" class="text-danger"></span>
             </div>

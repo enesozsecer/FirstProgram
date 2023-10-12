@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Model.Dtos.OfferDto.OfferGetDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h1>Teklifler</h1>
+<a class="btn btn-primary mb-3" asp-action="Add">Ekle</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Teklif Adı</td>
+            <td>Teklif Adedi</td>
+            <td>Teklif Fiyatı</td>
+            <td>Ürün Adı</td>
+            <td>Eski Fiyatı</td>
+            <td>İşlemler</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.OfferAmount</td>
+                <td>@item.OfferPrice</td>
+                <td>@item.ProductName</td>
+                <td>@item.ProductPrice</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

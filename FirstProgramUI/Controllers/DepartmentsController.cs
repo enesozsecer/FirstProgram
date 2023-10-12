@@ -1,4 +1,6 @@
-﻿using FirstProgramUI.Models.DepartmentModel;
+﻿using DataAccessLayer.EF.Context;
+using FirstProgramUI.Models.DepartmentModel;
+using FirstProgramUI.Models.ProductModel;
 using FirstProgramUI.Models.UserModel;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.DepartmentDto;
@@ -18,7 +20,7 @@ namespace FirstProgramUI.Controllers
         {
             _httpClient = httpClient;
         }
-
+        FirstProgramContext db = new FirstProgramContext();
         #endregion
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -30,11 +32,17 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            return View();
+            var val = new DepartmentGetModel
+            {
+                User = db.Users.ToList(),
+                Company = db.Companies.ToList(),
+                Department = db.Departments.ToList(),
+            };
+            return View(val);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(DepartmentGetViewModel addViewModel)
+        public async Task<IActionResult> Add(DepartmentGetModel addViewModel)
         {
             DepartmentGetDto postDto = new DepartmentGetDto()
             {
@@ -53,8 +61,11 @@ namespace FirstProgramUI.Controllers
         public async Task<IActionResult> Update(Guid id)
         {
             var val = await _httpClient.GetFromJsonAsync<DepartmentPutDto>(url + "Departments/GetById/" + id);
-            DepartmentUpdateViewModel updateViewModels = new DepartmentUpdateViewModel()
+            DepartmentGetModel updateViewModels = new DepartmentGetModel()
             {
+                User = db.Users.ToList(),
+                Company = db.Companies.ToList(),
+                Department = db.Departments.ToList(),
                 ID = val.ID,
                 Name = val.Name,
                 CompanyID = val.CompanyID,
@@ -64,7 +75,7 @@ namespace FirstProgramUI.Controllers
             return View(updateViewModels);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(Guid id, DepartmentUpdateViewModel updateViewModels)
+        public async Task<IActionResult> Update(Guid id, DepartmentGetModel updateViewModels)
         {
             DepartmentPutDto putDto = new DepartmentPutDto()
             {
@@ -82,9 +93,9 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var val = await _httpClient.GetFromJsonAsync<DepartmentGetViewModel>(url + "Departments/GetById/" + id);
+            var val = await _httpClient.GetFromJsonAsync<DepartmentGetModel>(url + "Departments/GetById/" + id);
 
-            DepartmentGetViewModel deleteViewModel = new DepartmentGetViewModel()
+            DepartmentGetModel deleteViewModel = new DepartmentGetModel()
             {
                 ID = val.ID,
                 Name = val.Name,

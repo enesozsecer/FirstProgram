@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Model.Dtos.StatusDto.StatusGetDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h1>Durumlar</h1>
+<a class="btn btn-primary mb-3" asp-action="Add">Ekle</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Durum Adı</td>
+            <td>İşlemler</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

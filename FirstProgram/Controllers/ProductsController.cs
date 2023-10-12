@@ -15,33 +15,38 @@ namespace FirstProgram.Controllers
         {
             _productBs = productBs;
         }
-        [HttpGet("getallproducts")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> GetProducts()
         {
             var response = await _productBs.GetProductsAsync("Category");
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _productBs.GetByIdAsync(id, "Category");
             return Ok(response);
         }
-        [HttpPost("addnewproduct")]
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> AddNewProduct([FromBody] ProductPostDto dto)
         {
             dto.ID = Guid.NewGuid();
             var response = await _productBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpPut("updateproduct")]
+        [HttpPut]
+        [Route("[action]")]
         public async Task<IActionResult> UpdateProduct([FromBody] ProductPutDto dto)
         {
             var response = await _productBs.UpdateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpDelete("deleteproduct")]
+        [HttpDelete]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             await _productBs.DeleteAsync(id);

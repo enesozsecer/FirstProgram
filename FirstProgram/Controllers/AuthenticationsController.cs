@@ -15,33 +15,42 @@ namespace FirstProgram.Controllers
         {
             _authenticationBs = authenticationBs;
         }
-        [HttpGet("getallauthentications")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> GetAuthentications()
         {
             var response = await _authenticationBs.GetAuthenticationAsync();
-            return Ok(response);
+            if (response != null)
+                return Ok(response);
+            return BadRequest();
         }
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _authenticationBs.GetByIdAsync(id);
-            return Ok(response);
+            if (response != null)
+                return Ok(response);
+            return BadRequest();
         }
         //[AllowAnonymous]
-        [HttpPost("addnewcauthentication")]
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> AddNewAuthentication([FromBody] AuthenticatePostDto dto)
         {
             dto.ID = Guid.NewGuid();
             var response = await _authenticationBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpPut("updateauthentication")]
+        [HttpPut]
+        [Route("[action]")]
         public async Task<IActionResult> UpdateAuthentication([FromBody] AuthenticatePutDto dto)
         {
             var response = await _authenticationBs.UpdateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpDelete("deleteauthentication")]
+        [HttpDelete]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> DeleteAuthentication(Guid id)
         {
             await _authenticationBs.DeleteAsync(id);

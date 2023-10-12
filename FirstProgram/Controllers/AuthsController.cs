@@ -15,7 +15,8 @@ namespace FirstProgram.Controllers
             _authBs = authBs;
         }
         //[AllowAnonymous]
-        [HttpPost("LogIn")]
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> Authorize([FromBody] LoginDto dto)
         {
 

@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer.EF.Context;
+using FirstProgramUI.Models.AuthModel;
+using FirstProgramUI.Models.CompanyModel;
+using Microsoft.AspNetCore.Mvc;
+using Model.Dtos.AuthenticateDto;
+using Model.Dtos.CompanyDto;
 using Model.Dtos.UserLoginDto;
+using Model.Entities;
 //using Model.Dtos.UserLoginDto;
 
 namespace FirstProgramUI.Controllers
@@ -8,7 +14,7 @@ namespace FirstProgramUI.Controllers
     {
         #region Defines
         private readonly HttpClient _httpClient;
-        private string url = "http://localhost:7161/api/";
+        private string url = "https://localhost:7161/api/";
         #endregion
 
         #region Constructor
@@ -16,10 +22,34 @@ namespace FirstProgramUI.Controllers
         {
             _httpClient = httpClient;
         }
+        FirstProgramContext db = new FirstProgramContext();
         #endregion
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        //public async Task<IActionResult> Index()
+        //{
+        //    var val = await _httpClient.GetFromJsonAsync<List<LoginDto>>(url + "Auths");
+        //    return View(val);
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
         {
-            //var val = await _httpClient.GetFromJsonAsync<List<LoginDto>>(url + "Auths");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AuthGetViewModel addViewModel)
+        {
+            LoginDto postDto = new LoginDto()
+            {
+                UserName = addViewModel.UserName,
+                UserPassword = addViewModel.UserPassword,
+            };
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Auths/Authorize", postDto);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }

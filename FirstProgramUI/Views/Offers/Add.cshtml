@@ -1,0 +1,42 @@
+﻿@model FirstProgramUI.Models.OfferModel.OfferGetModel
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/Layout.cshtml";
+
+}
+
+<h1>Ekle</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" />
+
+            <div class="form-group">
+                <label asp-for="Name">Teklif Adı</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OfferAmount">Teklif Adedi</label>
+                <input asp-for="OfferAmount" class="form-control" />
+                <span asp-validation-for="OfferAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OfferPrice">Teklif Fiyatı</label>
+                <input asp-for="OfferPrice" class="form-control" />
+                <span asp-validation-for="OfferPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductName">Ürün Adı</label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Ekle" class="btn btn-primary" />
+                <a class="btn btn-info" asp-action="Index">Listeye geri dön</a>
+            </div>
+        </form>
+    </div>
+</div>

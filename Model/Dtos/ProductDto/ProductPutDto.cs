@@ -12,8 +12,8 @@ namespace Model.Dtos.ProductDto
         public string? Name { get; set; }
         public short? StockQuantity { get; set; }
         public decimal? ProductPrice { get; set; }
-
         public Guid? CategoryID { get; set; }
         public Guid? OfferID { get; set; }
+
     }
 }

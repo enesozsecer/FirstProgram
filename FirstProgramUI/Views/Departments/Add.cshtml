@@ -1,4 +1,4 @@
-﻿@model FirstProgramUI.Models.DepartmentModel.DepartmentGetViewModel
+﻿@model FirstProgramUI.Models.DepartmentModel.DepartmentGetModel
 @{
     ViewData["Title"] = "Add";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -17,9 +17,13 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CompanyName">Şirket Adı</label>
-                <input asp-for="CompanyName" class="form-control" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                <label>Şirket Adı</label>
+                <select class="form-control" name="CompanyID">
+                    @foreach (var item in Model.Company)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
             </div>
 
             <div class="form-group">

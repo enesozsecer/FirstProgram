@@ -1,4 +1,6 @@
-﻿using FirstProgramUI.Models.CompanyModel;
+﻿using DataAccessLayer.EF.Context;
+using FirstProgramUI.Models.CompanyModel;
+using FirstProgramUI.Models.ProductModel;
 using FirstProgramUI.Models.RequestModel;
 using FirstProgramUI.Models.UserModel;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +23,7 @@ namespace FirstProgramUI.Controllers
         {
             _httpClient = httpClient;
         }
-
+        FirstProgramContext db = new FirstProgramContext();
         #endregion
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -33,20 +35,27 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            return View();
+            var val = new RequestGetModel
+            {
+                Request = db.Requests.ToList(),
+                Cateogry = db.Categories.ToList(),
+                Status = db.Statuses.ToList(),
+
+            };
+            return View(val);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(RequestGetViewModel addViewModel)
+        public async Task<IActionResult> Add(RequestGetModel addViewModel)
         {
-            RequestGetDto postDto = new RequestGetDto()
+            RequestPostDto postDto = new RequestPostDto()
             {
                 ID = addViewModel.ID,
                 Description = addViewModel.Description,
                 DesiredQuantity = addViewModel.DesiredQuantity,
-                CategoryName = addViewModel.CategoryName,
-                StatusName = addViewModel.StatusName,
-                UserName = addViewModel.UserName,
+                CategoryID = addViewModel.CategoryID,
+                StatusID = addViewModel.StatusID,
+                UserID = addViewModel.UserID,
             };
             HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Requests/AddNewRequest", postDto);
             if (responseMessage.IsSuccessStatusCode)
@@ -58,11 +67,15 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {
+            
             var val = await _httpClient.GetFromJsonAsync<RequestPutDto>(url + "Requests/GetById/" + id);
-            RequestUpdateViewModel updateViewModels = new RequestUpdateViewModel()
+            RequestGetModel updateViewModels = new RequestGetModel()
             {
+                Request = db.Requests.ToList(),
+                Cateogry = db.Categories.ToList(),
+                Status = db.Statuses.ToList(),
                 ID = val.ID,
-                Description=val.Description,
+                Description = val.Description,
                 DesiredQuantity = val.DesiredQuantity,
                 CategoryID = val.CategoryID,
                 StatusID = val.StatusID,
@@ -73,7 +86,7 @@ namespace FirstProgramUI.Controllers
             return View(updateViewModels);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(Guid id, RequestUpdateViewModel updateViewModels)
+        public async Task<IActionResult> Update(Guid id, RequestGetModel updateViewModels)
         {
             RequestPutDto putDto = new RequestPutDto()
             {
@@ -94,10 +107,13 @@ namespace FirstProgramUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var val = await _httpClient.GetFromJsonAsync<RequestGetViewModel>(url + "Requests/GetById/" + id);
+            var val = await _httpClient.GetFromJsonAsync<RequestGetModel>(url + "Requests/GetById/" + id);
 
-            RequestGetViewModel deleteViewModel = new RequestGetViewModel()
+            RequestGetModel deleteViewModel = new RequestGetModel()
             {
+                Request = db.Requests.ToList(),
+                Cateogry = db.Categories.ToList(),
+                Status = db.Statuses.ToList(),
                 ID = val.ID,
                 Description = val.Description,
                 DesiredQuantity = val.DesiredQuantity,

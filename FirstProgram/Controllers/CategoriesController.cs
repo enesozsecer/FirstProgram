@@ -17,33 +17,37 @@ namespace FirstProgram.Controllers
         {
             _categoryBs = categoryBs;
         }
-        [HttpGet("getallcategories")]
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> GetCategories()
         {
             var response = await _categoryBs.GetCategoriesAsync();
             return Ok(response);
         }
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _categoryBs.GetByIdAsync(id);
             return Ok(response);
         }
-        //[AllowAnonymous]
-        [HttpPost("addnewcategory")]
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> AddNewCategory([FromBody] CategoryPostDto dto)
         {
             dto.ID = Guid.NewGuid();
             var response = await _categoryBs.InsertAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpPut("updatecategory")]
+        [HttpPut]
+        [Route("[action]")]
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryPutDto dto)
         {
             var response = await _categoryBs.UpdateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
         }
-        [HttpDelete("deletecategory")]
+        [HttpDelete]
+        [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
             await _categoryBs.DeleteAsync(id);

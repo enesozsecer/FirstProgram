@@ -1,4 +1,5 @@
 ﻿using Azure;
+using DataAccessLayer.EF.Context;
 using FirstProgramUI.Models.CompanyModel;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.CompanyDto;
@@ -21,7 +22,7 @@ namespace FirstProgramUI.Controllers
         {
             _httpClient = httpClient;
         }
-
+        FirstProgramContext db = new FirstProgramContext();
         #endregion
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -37,7 +38,7 @@ namespace FirstProgramUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CompanyViewModel addViewModel)
+        public async Task<IActionResult> Add(CompanyGetModel addViewModel)
         {
             Company postDto = new Company()
             {
@@ -56,7 +57,7 @@ namespace FirstProgramUI.Controllers
         {
             var val = await _httpClient.GetFromJsonAsync<CompanyGetDto>(url + "Companies/GetById/" + id);
 
-            CompanyViewModel updateViewModels = new CompanyViewModel()
+            CompanyGetModel updateViewModels = new CompanyGetModel()
             {
                 ID = val.ID,
                 Name = val.Name,
@@ -65,7 +66,7 @@ namespace FirstProgramUI.Controllers
             return View(updateViewModels);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(Guid id, CompanyViewModel updateViewModels)
+        public async Task<IActionResult> Update(Guid id, CompanyGetModel updateViewModels)
         {
 
             CompanyPutDto putDto = new CompanyPutDto()
@@ -85,7 +86,7 @@ namespace FirstProgramUI.Controllers
         {
             var val = await _httpClient.GetFromJsonAsync<CompanyGetDto>(url + "Companies/GetById/" + id);
 
-            CompanyViewModel deleteViewModel = new CompanyViewModel()
+            CompanyGetModel deleteViewModel = new CompanyGetModel()
             {
                 ID = val.ID,
                 Name = val.Name,

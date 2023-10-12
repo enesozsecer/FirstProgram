@@ -1,4 +1,4 @@
-﻿@model FirstProgramUI.Models.RequestModel.RequestGetViewModel
+﻿@model FirstProgramUI.Models.RequestModel.RequestGetModel
 @{
     ViewData["Title"] = "Add";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -12,29 +12,32 @@
             <div asp-validation-summary="ModelOnly" class="text-danger" />
 
             <div class="form-group">
-                <label asp-for="Description">Departman Adı</label>
+                <label asp-for="Description">Açıklama</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DesiredQuantity">Şirket Adı</label>
+                <label asp-for="DesiredQuantity">Miktar</label>
                 <input asp-for="DesiredQuantity" class="form-control" />
                 <span asp-validation-for="DesiredQuantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategoryName">Şirket Adı</label>
-                <input asp-for="CategoryName" class="form-control" />
-                <span asp-validation-for="CategoryName" class="text-danger"></span>
+                <label>Kategori Adı</label>
+                <select class="form-control" name="CategoryID">
+                    @foreach (var item in Model.Cateogry)
+                    {
+                    <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="UserName">Şirket Adı</label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StatusName">Şirket Adı</label>
-                <input asp-for="StatusName" class="form-control" />
-                <span asp-validation-for="StatusName" class="text-danger"></span>
+                <label>Durum Adı</label>
+                <select class="form-control" name="StatusID">
+                        @foreach (var item in Model.Status)
+                        {
+                        <option value="@item.ID">@item.Name</option>
+                        }
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Ekle" class="btn btn-primary" />
