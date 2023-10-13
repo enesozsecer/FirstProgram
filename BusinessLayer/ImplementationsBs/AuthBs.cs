@@ -47,6 +47,7 @@ namespace BusinessLayer.ImplementationsBs
                 Expiration = (DateTime)tokenDescriptor.Expires,
                 UserName = val.Name,
                 UserID = val.ID,
+                
             };
             return await Task.Run(() => accessToken);
         }

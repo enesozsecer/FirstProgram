@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.EF.Context;
 using FirstProgramUI.Models.CategoryModel;
 using FirstProgramUI.Models.ProductModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.CategoryDto;
 using Model.Dtos.ProductDto;
@@ -21,6 +22,7 @@ namespace FirstProgramUI.Controllers
         }
         FirstProgramContext db = new FirstProgramContext();
         #endregion
+        
         [HttpGet]
         public async Task<IActionResult> Index()
         {

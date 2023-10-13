@@ -26,6 +26,14 @@
                 <td>@item.ProductPrice</td>
                 <td>@item.CategoryName</td>
                 <td>
+                    @* <form asp-controller="Products" asp-action="Update" method="get">
+                        <input type="hidden" name="ID" value="@item.ID" />
+                        <button class="btn-sm mr-2 btn btn-warning" type="submit">Güncelle</button>
+                    </form>
+                    <form asp-controller="Products" asp-action="Delete" method="get">
+                        <input type="hidden" name="ID" value="@item.ID" />
+                        <button class="btn-sm mr-2 btn btn-warning" type="submit">Sil</button>
+                    </form> *@
                     <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>
                 </td>
