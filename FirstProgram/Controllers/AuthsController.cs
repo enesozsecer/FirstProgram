@@ -17,7 +17,7 @@ namespace FirstProgram.Controllers
         //[AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Authorize([FromBody] LoginDto dto)
+        public async Task<IActionResult> Authenticate([FromBody] LoginDto dto)
         {
 
             var response = await _authBs.AuthenticateAsync(dto);

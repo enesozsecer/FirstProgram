@@ -23,7 +23,7 @@ namespace BusinessLayer.ImplementationsBs
         public async Task<AccessToken> AuthenticateAsync(LoginDto login)
         {
 
-            var val = await _repo.GetAsync(x => x.Name == login.UserName && x.Password == login.UserPassword);
+            var val = await _repo.GetAsync(x => x.Email == login.UserName && x.Password == login.UserPassword);
             if (val == null)
             {
                 return null;
@@ -35,7 +35,8 @@ namespace BusinessLayer.ImplementationsBs
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name,val.ID.ToString())
+                    new Claim(ClaimTypes.Email,val.ID.ToString()),
+                    new Claim(ClaimTypes.Role,val.AuthenticateID.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -45,9 +46,9 @@ namespace BusinessLayer.ImplementationsBs
             {
                 Token = tokenHandler.WriteToken(token),
                 Expiration = (DateTime)tokenDescriptor.Expires,
-                UserName = val.Name,
+                UserName = val.Email,
                 UserID = val.ID,
-                
+                AuthenticationID = val.ID,
             };
             return await Task.Run(() => accessToken);
         }

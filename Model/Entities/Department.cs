@@ -13,7 +13,7 @@ namespace Model.Entities
         public string? Name { get; set; }
 
         public List<User>? User { get; set; }
-        public Guid CompanyID { get; set; }
+        public Guid? CompanyID { get; set; }
         public Company? Company { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace Core.Helpers
         public DateTime Expiration { get; set; }
         public Guid UserID { get; set; }
         public string UserName { get; set; }
+        public Guid AuthenticationID { get; set; }
     }
 }

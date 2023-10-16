@@ -6,7 +6,7 @@ namespace FirstProgramUI.Models.DepartmentModel
     {
         public Guid ID { get; set; }
         public string? Name { get; set; }
-        public Guid? CompanyID { get; set; }
+        public Guid CompanyID { get; set; }
         public string CompanyName { get; set; }
         public List<Company> Company { get; set; }
         public List<Department> Department { get; set; }

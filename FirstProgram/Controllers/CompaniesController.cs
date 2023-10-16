@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.ImplementationsBs;
 using BusinessLayer.InterfacesBs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.CategoryDto;
@@ -11,6 +12,7 @@ namespace FirstProgram.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "6739108f-db13-492c-907d-0e05d5d18769")]
     public class CompaniesController : ControllerBase
     {
         private readonly ICompanyBs _companyBs;

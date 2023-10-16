@@ -34,7 +34,6 @@ namespace FirstProgramUI.Controllers
         {
             var val = new DepartmentGetModel
             {
-                User = db.Users.ToList(),
                 Company = db.Companies.ToList(),
                 Department = db.Departments.ToList(),
             };
@@ -44,11 +43,11 @@ namespace FirstProgramUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(DepartmentGetModel addViewModel)
         {
-            DepartmentGetDto postDto = new DepartmentGetDto()
+            DepartmentPostDto postDto = new DepartmentPostDto()
             {
                 ID = addViewModel.ID,
                 Name = addViewModel.Name,
-                CompanyName= addViewModel.CompanyName,
+                CompanyID= addViewModel.CompanyID,
             };
             HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Departments/AddNewDepartment", postDto);
             if (responseMessage.IsSuccessStatusCode)

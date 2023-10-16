@@ -130,5 +130,13 @@ namespace FirstProgramUI.Controllers
             await _httpClient.DeleteAsync(url + "Requests/DeleteRequest/" + id);
             return RedirectToAction("Index");
         }
+        public IActionResult MatchMethod(Guid id)
+        {
+            var val = db.Users
+                .Where(x => x.DepartmentID == id)
+                    .Where(y => y.CompanyID == id).ToList();
+
+            return Json(val);
+        }
     }
 }

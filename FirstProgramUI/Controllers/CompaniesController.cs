@@ -40,10 +40,11 @@ namespace FirstProgramUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(CompanyGetModel addViewModel)
         {
-            Company postDto = new Company()
+            CompanyPostDto postDto = new CompanyPostDto()
             {
                 ID = addViewModel.ID,
                 Name = addViewModel.Name,
+                
             };
             HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Companies/AddNewCompany", postDto);
             if (responseMessage.IsSuccessStatusCode)

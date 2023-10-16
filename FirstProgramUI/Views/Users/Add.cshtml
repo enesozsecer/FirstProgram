@@ -6,6 +6,28 @@
 }
 
 <h1>Ekle</h1>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#aDropdown").change(function () {
+            var selectedCompanyId = $(this).val();
+
+            $.ajax({
+                url: "/Users/MatchMethod",
+                type: "POST",
+                data: { id: selectedCompanyId },
+                success: function (data) {
+                    $("#bDropdown").empty();
+                    $("#bDropdown").append("<option value=''>Seçiniz</option>");
+                    $.each(data, function (index, item) {
+                        $("#bDropdown").append("<option value='" + item.id + "'>" + item.name + "</option>");
+                    });
+                }
+            });
+        });
+    });
+</script>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Add" method="post">
@@ -37,7 +59,7 @@
             </div>
             <div class="form-group">
                 <label>Şirket Adı</label>
-                <select class="form-control" name="CompanyID">
+                <select id="aDropdown" class="form-control" name="CompanyID">
                     @foreach (var item in Model.Company)
                     {
                         <option value="@item.ID">@item.Name</option>
@@ -45,12 +67,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Departman Adı</label>
-                <select class="form-control" name="DepartmentID">
-                    @foreach (var item in Model.Department)
-                    {
-                        <option value="@item.ID">@item.Name</option>
-                    }
+                <label for="Seçiniz">Seçiniz</label>
+                <select id="bDropdown" class="form-control " name="DepartmentID">
                 </select>
             </div>
 

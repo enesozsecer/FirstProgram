@@ -11,7 +11,7 @@ namespace FirstProgram.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="6739108f-db13-492c-907d-0e05d5d18769")]
+    [Authorize(Roles = "6739108f-db13-492c-907d-0e05d5d18769")]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryBs _categoryBs;
@@ -22,6 +22,7 @@ namespace FirstProgram.Controllers
         
         [HttpGet]
         [Route("[action]")]
+        [Authorize(Roles = "32aa239e-5041-4ebc-a98d-19193778ad0f")]
         public async Task<IActionResult> GetCategories()
         {
             var response = await _categoryBs.GetCategoriesAsync();
@@ -29,6 +30,7 @@ namespace FirstProgram.Controllers
         }
         [HttpGet]
         [Route("[action]/{id:Guid}")]
+        [Authorize(Roles = "32aa239e-5041-4ebc-a98d-19193778ad0f")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _categoryBs.GetByIdAsync(id);
@@ -44,6 +46,7 @@ namespace FirstProgram.Controllers
         }
         [HttpPut]
         [Route("[action]")]
+        [Authorize(Roles = "32aa239e-5041-4ebc-a98d-19193778ad0f")]
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryPutDto dto)
         {
             var response = await _categoryBs.UpdateAsync(dto);

@@ -37,13 +37,13 @@ namespace FirstProgramUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(OfferGetModel addViewModel)
         {
-            OfferGetDto postDto = new OfferGetDto()
+            OfferPostDto postDto = new OfferPostDto()
             {
                 ID = addViewModel.ID,
                 Name = addViewModel.Name,
                 OfferAmount= addViewModel.OfferAmount,
                 OfferPrice= addViewModel.OfferPrice,
-                ProductName= addViewModel.ProductName,
+                ProductID= addViewModel.ProductID,
 
             };
             HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Offers/AddNewOffer", postDto);

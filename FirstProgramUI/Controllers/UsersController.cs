@@ -53,9 +53,9 @@ namespace FirstProgramUI.Controllers
                 Name = addViewModel.Name,
                 Password = addViewModel.Password,
                 Email = addViewModel.Email,
-                AuthenticateName=addViewModel.AuthenticateName,
-                DepartmentName=addViewModel.DepartmentName,
-                CompanyName=addViewModel.CompanyName
+                AuthenticateID=addViewModel.AuthenticateID,
+                DepartmentID=addViewModel.DepartmentID,
+                CompanyID=addViewModel.CompanyID
             };
             HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Users/AddNewUser", postDto);
             if (responseMessage.IsSuccessStatusCode)
@@ -129,6 +129,14 @@ namespace FirstProgramUI.Controllers
         {
             await _httpClient.DeleteAsync(url + "Users/DeleteUser/" + id);
             return RedirectToAction("Index");
+        }
+        public IActionResult MatchMethod(Guid id)
+        {
+            var val = db.Departments
+                .Where(x => x.CompanyID == id)
+                .ToList();
+
+            return Json(val);
         }
 
     }
