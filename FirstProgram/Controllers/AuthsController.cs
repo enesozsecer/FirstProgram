@@ -9,21 +9,25 @@ namespace FirstProgram.Controllers
     [ApiController]
     public class AuthsController : ControllerBase
     {
-        private readonly IAuthBs _authBs;
-        public AuthsController(IAuthBs authBs)
+        private readonly IAuthService _authService;
+        public AuthsController(IAuthService authService)
         {
-            _authBs = authBs;
+            _authService = authService;
         }
-        //[AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Authenticate([FromBody] LoginDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-
-            var response = await _authBs.AuthenticateAsync(dto);
-            if (response != null)
+            var response = await _authService.LoginAsync(loginDto);
+            if (response.Success)
                 return Ok(response);
             return BadRequest();
+        }
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> Logout()
+        {
+            return Unauthorized();
         }
     }
 }

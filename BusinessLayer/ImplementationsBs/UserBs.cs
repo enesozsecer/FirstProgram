@@ -2,7 +2,6 @@
 using BusinessLayer.InterfacesBs;
 using DataAccessLayer.Interfaces;
 using Model.Entities;
-using Core.Helpers;
 using Model.Dtos.UserLoginDto;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,6 +11,10 @@ using Microsoft.Extensions.Options;
 using System.Data;
 using Model.Dtos.UserDto;
 using Model.Dtos.ProductDto;
+using Core.Utilities.Security.Token;
+using System.Linq.Expressions;
+using Core.Utilities.Response;
+using Core.Entities.Concrete;
 
 namespace BusinessLayer.ImplementationsBs
 {
@@ -40,11 +43,11 @@ namespace BusinessLayer.ImplementationsBs
         public async Task<User> UpdateAsync(UserPutDto entity)
         {
             var val = _mapper.Map<User>(entity);
+            val.Token = entity.Token;
+            val.TokenExpireDate = entity.TokenExpireDate;
             var updatedVal = await _repo.UpdateAsync(val);
             return updatedVal;
         }
-
-
         public async Task<UserGetDto> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetByIdAsync(Id, IncludeList);
@@ -66,10 +69,6 @@ namespace BusinessLayer.ImplementationsBs
             }
             throw new NotImplementedException();
         }
-
-
-        
-
         public async Task<List<UserGetDto>> GetRoleIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetRoleIdAsync(Id, IncludeList);
@@ -114,6 +113,17 @@ namespace BusinessLayer.ImplementationsBs
             }
 
             throw new NotImplementedException();
+        }
+
+        public async Task<ApiDataResponse<UserGetDto>> GetAsync(Expression<Func<User, bool>> predicate, params string[] includeList)
+        {
+            var user= await _repo.GetAsync(predicate, includeList);
+            if (user!=null)
+            {
+                var userDto = _mapper.Map<UserGetDto>(user);
+                return new SuccessApiDataResponse<UserGetDto>(userDto,"Listelendi");
+            }
+            return new ErrorApiDataResponse<UserGetDto>(null, "Listelenmedi");
         }
     }
 }

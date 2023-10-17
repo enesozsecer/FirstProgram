@@ -1,10 +1,11 @@
-﻿using Model.Dtos.UserLoginDto;
+﻿using Core.Utilities.Response;
+using Model.Dtos.UserLoginDto;
 using Model.Entities;
 
 namespace FirstProgramUI.ApiServices.Interfaces
 {
     public interface IAuthApiService
     {
-        Task<User> LoginAsync(LoginDto loginDto);
+        Task<ApiDataResponse<User>> LoginAsync(LoginDto loginDto);
     }
 }

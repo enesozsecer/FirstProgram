@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.ImplementationsBs;
 using BusinessLayer.InterfacesBs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.ProductDto;
@@ -18,6 +19,7 @@ namespace FirstProgram.Controllers
         }
         [HttpGet]
         [Route("[action]")]
+        [Authorize(Roles = "32aa239e-5041-4ebc-a98d-19193778ad0f,bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259,ec4df0e7-a5fd-409c-b7d8-f87af06edb87")]
         public async Task<IActionResult> GetRequests()
         {
             var response = await _requestBs.GetRequestsAsync("Category", "User", "Status");
@@ -25,6 +27,7 @@ namespace FirstProgram.Controllers
         }
         [HttpGet]
         [Route("[action]/{id:Guid}")]
+        [Authorize(Roles = "32aa239e-5041-4ebc-a98d-19193778ad0f,bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259,ec4df0e7-a5fd-409c-b7d8-f87af06edb87")]
         public async Task<IActionResult> GetRequestsByStatus([FromRoute] Guid id)
         {
             var response = await _requestBs.GetStatusIdAsync(id, "Category", "User", "Status");

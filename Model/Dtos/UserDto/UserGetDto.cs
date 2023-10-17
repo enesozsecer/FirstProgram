@@ -12,6 +12,8 @@ namespace Model.Dtos.UserDto
         public string? Name { get; set; }
         public string? Password { get; set; }
         public string Email { get; set; }
+        public string Token { get; set; }
+        public DateTime TokenExpireDate { get; set; }
         public string? AuthenticateName { get; set; }
         public string? DepartmentName { get; set; }
         public string? CompanyName { get; set; }

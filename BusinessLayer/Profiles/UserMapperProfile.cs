@@ -21,6 +21,7 @@ namespace BusinessLayer.Profiles
             //.ForMember(dst => dst.StatusName, X => X.MapFrom(src => src.Status.Name));
             CreateMap<UserPostDto, User>();
             CreateMap<UserPutDto, User>();
+            CreateMap<User, UserPutDto>();
         }
     }
 }

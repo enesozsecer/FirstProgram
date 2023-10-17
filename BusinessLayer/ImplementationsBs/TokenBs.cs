@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLayer.InterfacesBs;
-using Core.Helpers;
+using Core.Utilities.Security.Token;
 using DataAccessLayer.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -11,11 +11,11 @@ using System.Text;
 
 namespace BusinessLayer.ImplementationsBs
 {
-    public class AuthBs:IAuthBs
+    public class TokenBs:ITokenBs
     {
         private readonly IUserRepository _repo;
         private readonly AppSettings _appSettings;
-        public AuthBs(IUserRepository repo, IOptions<AppSettings> appSettings)
+        public TokenBs(IUserRepository repo, IOptions<AppSettings> appSettings)
         {
             _repo = repo;
             _appSettings = appSettings.Value;
@@ -23,7 +23,7 @@ namespace BusinessLayer.ImplementationsBs
         public async Task<AccessToken> AuthenticateAsync(LoginDto login)
         {
 
-            var val = await _repo.GetAsync(x => x.Email == login.UserName && x.Password == login.UserPassword);
+            var val = await _repo.GetAsync(x => x.Name == login.UserName && x.Password == login.UserPassword);
             if (val == null)
             {
                 return null;
@@ -35,7 +35,7 @@ namespace BusinessLayer.ImplementationsBs
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Email,val.ID.ToString()),
+                    new Claim(ClaimTypes.Name,val.ID.ToString()),
                     new Claim(ClaimTypes.Role,val.AuthenticateID.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
@@ -46,7 +46,7 @@ namespace BusinessLayer.ImplementationsBs
             {
                 Token = tokenHandler.WriteToken(token),
                 Expiration = (DateTime)tokenDescriptor.Expires,
-                UserName = val.Email,
+                UserName = val.Name,
                 UserID = val.ID,
                 AuthenticationID = val.ID,
             };

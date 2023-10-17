@@ -14,8 +14,8 @@ namespace Model.Entities
         public string? Name { get; set; }
         public string? Password { get; set; }
         public string Email { get; set; }
-        
-       
+        public string Token { get; set; }
+        public DateTime TokenExpireDate { get; set; }
         public List<Request>? Request { get; set; }
         public Guid? DepartmentID { get; set; }
         public Department? Department { get; set; }

@@ -23,8 +23,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     opt.SlidingExpiration = true;
     opt.Cookie.Name = "mvccookie";
 });
-
-builder.Services.AddSession();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

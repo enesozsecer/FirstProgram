@@ -1,4 +1,4 @@
-﻿using Core.Helpers;
+﻿using Core.Utilities.Security.Token;
 using Model.Dtos.UserLoginDto;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.InterfacesBs
 {
-    public interface IAuthBs
+    public interface ITokenBs
     {
         Task<AccessToken> AuthenticateAsync(LoginDto dto);
     }

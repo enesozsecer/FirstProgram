@@ -11,6 +11,7 @@ namespace FirstProgram.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259")]
     public class UsersController : ControllerBase
     {
         private readonly IUserBs _userBs;

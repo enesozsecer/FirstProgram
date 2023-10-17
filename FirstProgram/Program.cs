@@ -5,12 +5,13 @@ using DataAccessLayer.Interfaces;
 using System.Text.Json.Serialization;
 using AutoMapper;
 using BusinessLayer.Profiles;
-using Core.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authorization;
+using Core.Utilities.Security.Token;
+using Core.Utilities.Security.Token.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,7 +85,7 @@ builder.Services.AddControllersWithViews().AddJsonOptions(x =>
 
 builder.Services.AddAutoMapper(typeof(RequestMapperProfile).Assembly);
 
-builder.Services.AddScoped<IAuthBs, AuthBs>();
+builder.Services.AddScoped<ITokenBs, TokenBs>();
 builder.Services.AddScoped<IRequestBs, RequestBs>();
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 builder.Services.AddScoped<IUserBs, UserBs>();
@@ -103,6 +104,8 @@ builder.Services.AddScoped<IAuthenticationBs, AuthenticationBs>();
 builder.Services.AddScoped<IAuthenticateRepository, AuthenticateRepository>();
 builder.Services.AddScoped<IOfferBs, OfferBs>();
 builder.Services.AddScoped<IOfferRepository, OfferRepository>();
+builder.Services.AddScoped<ITokenService, JwtTokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 

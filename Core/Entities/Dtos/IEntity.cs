@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Helpers
+namespace Core.Entities.Dtos
 {
-    public class AppSettings
+    public interface IEntity
     {
-        public string SecurityKey { get; set; }
+        int Id { get; set; }
+        bool IsActive { get; set; }
     }
 }
