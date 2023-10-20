@@ -30,9 +30,11 @@ namespace FirstProgramUI.Controllers
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             var user = await _authApiService.LoginAsync(loginDto);
-            if (user.Success)
+            if (user!=null && user.Success)
             {
                 _httpContextAccessor.HttpContext.Session.SetString("token", user.Data.Token);
+                //_httpContextAccessor.HttpContext.Session.SetString("AuthsID", user.Data.AuthenticateID.ToString());
+                
                 var userClaims = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 userClaims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Data.ID.ToString()));
                 userClaims.AddClaim(new Claim(ClaimTypes.Name, user.Data.Email));

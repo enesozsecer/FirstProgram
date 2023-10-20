@@ -12,7 +12,6 @@ namespace FirstProgram.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "6739108f-db13-492c-907d-0e05d5d18769")]
     public class CompaniesController : ControllerBase
     {
         private readonly ICompanyBs _companyBs;

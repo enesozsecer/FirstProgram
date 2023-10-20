@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.ImplementationsBs;
 using BusinessLayer.InterfacesBs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.CompanyDto;

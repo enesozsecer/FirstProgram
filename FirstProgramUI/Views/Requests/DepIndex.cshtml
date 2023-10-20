@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Model.Dtos.RequestDto.RequestGetDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+<h1>DepIndex</h1>
+<a class="btn btn-primary mb-3" asp-action="Add">Ekle</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Açıklama</td>
+            <td>İstenilen Adet</td>
+            <td>Kategori Adı</td>
+            <td>İstek Durumu</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Description</td>
+                <td>@item.DesiredQuantity</td>
+                <td>@item.CategoryName</td>
+                <td>@item.StatusName</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

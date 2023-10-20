@@ -14,6 +14,7 @@
             <td>İstenilen Adet</td>
             <td>Kategori Adı</td>
             <td>İstek Durumu</td>
+            <td>Kullanıcı Adı</td>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
                 <td>@item.DesiredQuantity</td>
                 <td>@item.CategoryName</td>
                 <td>@item.StatusName</td>
+                <td>@item.UserName</td>
                 <td>
                     <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>

@@ -14,10 +14,10 @@ namespace Model.Dtos.UserDto
         public string Email { get; set; }
         public string Token { get; set; }
         public DateTime TokenExpireDate { get; set; }
-        public string? AuthenticateName { get; set; }
+        public string? RoleName { get; set; }
         public string? DepartmentName { get; set; }
         public string? CompanyName { get; set; }
-        public Guid? AuthenticateID { get; set; }
+        public Guid? RoleID { get; set; }
         public Guid? DepartmentID { get; set; }
         public Guid? CompanyID { get; set; }
     }

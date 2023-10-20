@@ -31,6 +31,11 @@ namespace FirstProgramUI.Controllers
             var val = await _httpClient.GetFromJsonAsync<List<RequestGetDto>>(url + "Requests/GetRequests");
             return View(val);
         }
+        public async Task<IActionResult> DepIndex()
+        {
+            var val = await _httpClient.GetFromJsonAsync<List<RequestGetDto>>(url + "Requests/GetDepRequests");
+            return View(val);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Add()

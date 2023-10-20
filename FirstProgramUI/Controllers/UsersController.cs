@@ -22,13 +22,19 @@ namespace FirstProgramUI.Controllers
         {
             _httpClient = httpClient;
         }
+
         FirstProgramContext db = new FirstProgramContext();
         #endregion
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var val = await _httpClient.GetFromJsonAsync<List<UserGetDto>>(url + "Users/GetUsers");
-            return View(val);
+            //var AuthsID = HttpContext.Session.GetString("AuthsID");
+            //if (AuthsID== "32aa239e-5041-4ebc-a98d-19193778ad0f")
+            //{
+                var val = await _httpClient.GetFromJsonAsync<List<UserGetDto>>(url + "Users/GetUsers");
+                return View(val);
+            //}
+            //return BadRequest();
         }
 
         [HttpGet]
@@ -38,7 +44,7 @@ namespace FirstProgramUI.Controllers
             {
                 Company = db.Companies.ToList(),
                 User = db.Users.ToList(),
-                Authenticate = db.Authentications.ToList(),
+                Role = db.Authentications.ToList(),
                 Department = db.Departments.ToList(),
             };
             return View(val);
@@ -47,17 +53,20 @@ namespace FirstProgramUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(UserGetModel addViewModel)
         {
-            UserGetDto postDto = new UserGetDto()
+            
+            UserPostDto postDto = new UserPostDto()
             {
                 ID = addViewModel.ID,
                 Name = addViewModel.Name,
                 Password = addViewModel.Password,
                 Email = addViewModel.Email,
-                AuthenticateID=addViewModel.AuthenticateID,
-                DepartmentID=addViewModel.DepartmentID,
-                CompanyID=addViewModel.CompanyID
+                RoleID = addViewModel.RoleID,
+                DepartmentID = addViewModel.DepartmentID,
+                CompanyID = addViewModel.CompanyID,
+                
             };
-            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Users/AddNewUser", postDto);
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync("https://localhost:7161/api/Users/AddNewUser"
+, postDto);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -72,13 +81,13 @@ namespace FirstProgramUI.Controllers
             {
                 Company = db.Companies.ToList(),
                 User = db.Users.ToList(),
-                Authenticate = db.Authentications.ToList(),
+                Role = db.Authentications.ToList(),
                 Department = db.Departments.ToList(),
                 ID = val.ID,
                 Name = val.Name,
                 Password = val.Password,
                 Email = val.Email,
-                AuthenticateID = val.AuthenticateID,
+                RoleID = val.RoleID,
                 DepartmentID = val.DepartmentID,
                 CompanyID = val.CompanyID,
                 
@@ -94,7 +103,7 @@ namespace FirstProgramUI.Controllers
                 Name = updateViewModels.Name,
                 Password = updateViewModels.Password,
                 Email = updateViewModels.Email,
-                AuthenticateID = updateViewModels.AuthenticateID,
+                RoleID = updateViewModels.RoleID,
                 DepartmentID = updateViewModels.DepartmentID,
                 CompanyID = updateViewModels.CompanyID,
                 ID = id
@@ -117,7 +126,7 @@ namespace FirstProgramUI.Controllers
                 Name = val.Name,
                 Password = val.Password,
                 Email = val.Email,
-                AuthenticateName = val.AuthenticateName,
+                RoleName = val.RoleName,
                 DepartmentName = val.DepartmentName,
                 CompanyName = val.CompanyName
             };

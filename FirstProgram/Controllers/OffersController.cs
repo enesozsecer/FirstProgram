@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.InterfacesBs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.CategoryDto;
@@ -19,14 +20,35 @@ namespace FirstProgram.Controllers
         [Route("[action]")]
         public async Task<IActionResult> GetOffers()
         {
-            var response = await _offerBs.GetOffersAsync("Product");
+            var response = await _offerBs.GetOffersAsync("Product", "Status");
+            return Ok(response);
+        }
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetOffersBySupplier(string name)
+        {
+            var response = await _offerBs.GetNameAsync(name, "Product", "Status");
+            return Ok(response);
+        }
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetOffersByProduct(Guid Id)
+        {
+            var response = await _offerBs.GetAsyncByProduct(Id, "Product", "Status");
+            return Ok(response);
+        }
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetOffersByStatus(Guid Id)
+        {
+            var response = await _offerBs.GetAsyncByStatus(Id, "Product", "Status");
             return Ok(response);
         }
         [HttpGet]
         [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var response = await _offerBs.GetByIdAsync(id, "Product");
+            var response = await _offerBs.GetByIdAsync(id, "Product", "Status");
             return Ok(response);
         }
         //[AllowAnonymous]

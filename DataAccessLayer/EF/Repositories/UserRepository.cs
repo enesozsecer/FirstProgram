@@ -34,7 +34,7 @@ namespace DataAccessLayer.EF.Repositories
 
         public async Task<List<User>> GetRoleIdAsync(Guid Id, params string[] IncludeList)
         {
-            return await GetAllAsync(val => val.AuthenticateID == Id, IncludeList);
+            return await GetAllAsync(val => val.RoleID == Id, IncludeList);
         }
     }
 }

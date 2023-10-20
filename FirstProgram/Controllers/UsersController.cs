@@ -11,7 +11,6 @@ namespace FirstProgram.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259")]
     public class UsersController : ControllerBase
     {
         private readonly IUserBs _userBs;
@@ -23,7 +22,7 @@ namespace FirstProgram.Controllers
         [Route("[action]")]
         public async Task<IActionResult> GetUsers()
         {
-            var response = await _userBs.GetUsersAsync("Authenticate", "Department", "Company");
+            var response = await _userBs.GetUsersAsync("Role", "Department", "Company");
             return Ok(response);
         }
 
@@ -31,7 +30,7 @@ namespace FirstProgram.Controllers
         [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var response = await _userBs.GetByIdAsync(id, "Authenticate", "Department", "Company");
+            var response = await _userBs.GetByIdAsync(id, "Role", "Department", "Company");
             return Ok(response);
         }
         [HttpPost]

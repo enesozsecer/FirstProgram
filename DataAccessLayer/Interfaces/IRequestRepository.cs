@@ -11,5 +11,6 @@ namespace DataAccessLayer.Interfaces
         Task<List<Request>> GetCategoryIdAsync(Guid Id, params string[] IncludeList);
         Task<List<Request>> GetUserIdAsync(Guid Id, params string[] IncludeList);
         Task<List<Request>> GetStatusIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<Request>> GetUserDepIdAsync(Guid Id, params string[] IncludeList);
     }
 }

@@ -13,5 +13,6 @@ namespace Model.Dtos.OfferDto
         public short? OfferAmount { get; set; }
         public decimal? OfferPrice { get; set; }
         public Guid? ProductID { get; set; }
+        public Guid? StatusID { get; set; }
     }
 }

@@ -21,7 +21,6 @@ namespace FirstProgram.Controllers
         
         [HttpGet]
         [Route("[action]")]
-        [Authorize(Roles = "bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259")]
         public async Task<IActionResult> GetCategories()
         {
             var response = await _categoryBs.GetCategoriesAsync();
@@ -29,7 +28,6 @@ namespace FirstProgram.Controllers
         }
         [HttpGet]
         [Route("[action]/{id:Guid}")]
-        [Authorize(Roles = "bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _categoryBs.GetByIdAsync(id);
@@ -37,7 +35,6 @@ namespace FirstProgram.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        [Authorize(Roles = "bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259")]
         public async Task<IActionResult> AddNewCategory([FromBody] CategoryPostDto dto)
         {
             dto.ID = Guid.NewGuid();
@@ -46,7 +43,6 @@ namespace FirstProgram.Controllers
         }
         [HttpPut]
         [Route("[action]")]
-        [Authorize(Roles = "bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259")]
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryPutDto dto)
         {
             var response = await _categoryBs.UpdateAsync(dto);
@@ -54,7 +50,6 @@ namespace FirstProgram.Controllers
         }
         [HttpDelete]
         [Route("[action]/{id:Guid}")]
-        [Authorize(Roles = "bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
             await _categoryBs.DeleteAsync(id);

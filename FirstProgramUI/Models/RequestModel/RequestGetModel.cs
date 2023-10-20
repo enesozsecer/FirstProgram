@@ -16,6 +16,7 @@ namespace FirstProgramUI.Models.RequestModel
         public List<Request> Request { get; set; }
         public List<Category> Cateogry { get; set; }
         public List<Status> Status { get; set; }
+        public List<User> User { get; set; }
 
     }
 }

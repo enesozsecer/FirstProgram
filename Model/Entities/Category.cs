@@ -13,5 +13,6 @@ namespace Model.Entities
         public string? Name { get; set; }
         public List<Request>? Request { get; set; }
         public List<Product>? Product { get; set; }
+        public List<Supplier> Supplier { get; set; }
     }
 }

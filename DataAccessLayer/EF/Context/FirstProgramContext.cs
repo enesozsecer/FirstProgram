@@ -16,8 +16,10 @@ namespace DataAccessLayer.EF.Context
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Offer> Offers { get; set; }
-        public DbSet<Authenticate> Authentications { get; set; }
+        public DbSet<Role> Authentications { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
 
     }
 }

@@ -1,8 +1,8 @@
 ﻿using DataAccessLayer.EF.Context;
-using FirstProgramUI.Models.AuthenticationModel;
+using FirstProgramUI.Models.RoleModel;
 using FirstProgramUI.Models.OfferModel;
 using Microsoft.AspNetCore.Mvc;
-using Model.Dtos.AuthenticateDto;
+using Model.Dtos.RoleDto;
 using Model.Dtos.OfferDto;
 
 namespace FirstProgramUI.Controllers

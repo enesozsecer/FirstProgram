@@ -27,6 +27,28 @@ namespace BusinessLayer.ImplementationsBs
             await _repo.DeleteAsync(val);
         }
 
+        public async Task<List<OfferGetDto>> GetAsyncByProduct(Guid Id, params string[] IncludeList)
+        {
+            var val = await _repo.GetAsyncByProduct(Id, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<OfferGetDto>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<OfferGetDto>> GetAsyncByStatus(Guid Id, params string[] IncludeList)
+        {
+            var val = await _repo.GetAsyncByStatus(Id, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<OfferGetDto>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
+
         public async Task<OfferGetDto> GetByIdAsync(Guid Id, params string[] IncludeList)
         {
             var val = await _repo.GetByIdAsync(Id, IncludeList);
@@ -64,6 +86,8 @@ namespace BusinessLayer.ImplementationsBs
 
         public async Task<Offer> InsertAsync(OfferPostDto entity)
         {
+            entity.StatusID = Guid.Parse("34f0086e-304e-4eb4-99a1-1c54343a9d7c");
+            entity.OfferPrice = decimal.Parse("0");
             var val = _mapper.Map<Offer>(entity);
             var insertedVal = await _repo.InsertAsync(val);
             return insertedVal;

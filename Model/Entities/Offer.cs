@@ -16,7 +16,14 @@ namespace Model.Entities
 
 
 
+
+        public Guid? SupplierID { get; set; }
+        public Supplier? Supplier { get; set; }
         public Guid? ProductID { get; set; }
         public Product? Product { get; set; }
+        public Guid? StatusID { get; set; }
+        public Status? Status { get; set; }
+        public Guid? InvoiceID { get; set; }
+        public Invoice? Invoice { get; set; }
     }
 }

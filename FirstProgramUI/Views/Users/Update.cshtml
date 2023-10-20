@@ -48,7 +48,7 @@
             <div class="form-group">
                 <label>Rol Adı</label>
                 <select class="form-control" name="AuthenticateID">
-                    @foreach (var item in Model.Authenticate)
+                    @foreach (var item in Model.Role)
                     {
                         <option value="@item.ID">@item.Name</option>
                     }

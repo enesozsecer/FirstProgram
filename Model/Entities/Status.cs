@@ -14,5 +14,6 @@ namespace Model.Entities
 
 
         public List<Request>? Request { get; set; }
+        public List<Offer>? Offer { get; set; }
     }
 }

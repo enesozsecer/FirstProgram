@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,8 @@ namespace Core.Utilities.Security.Token.Jwt
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier,userId.ToString()),
-                    new Claim(ClaimTypes.Name,userName)
+
+                    new Claim(ClaimTypes.Role,userId.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -38,6 +40,7 @@ namespace Core.Utilities.Security.Token.Jwt
                 Expiration = (DateTime)tokenDescriptor.Expires,
                 UserName = userName,
                 UserID = userId,
+                AuthenticationID=userId
             };
         }
     }

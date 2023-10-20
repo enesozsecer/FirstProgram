@@ -15,6 +15,7 @@ namespace Model.Entities
         public Guid? CategoryID { get; set; }
         public Guid? UserID { get; set; }
         public Guid? StatusID { get; set; }
+        
 
         public Category? Category { get; set; }
         public User? User { get; set; }

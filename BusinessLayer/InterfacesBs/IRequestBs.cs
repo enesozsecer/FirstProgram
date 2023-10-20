@@ -20,5 +20,6 @@ namespace BusinessLayer.InterfacesBs
         Task<Request> InsertAsync(RequestPostDto entity);
         Task<Request> UpdateAsync(RequestPutDto entity);
         Task DeleteAsync(Guid id);
+        Task<List<RequestGetDto>> GetUserDepIdAsync(Guid depId, params string[] IncludeList);
     }
 }

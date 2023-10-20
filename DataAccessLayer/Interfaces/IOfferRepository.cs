@@ -12,5 +12,7 @@ namespace DataAccessLayer.Interfaces
     {
         Task<Offer> GetByIdAsync(Guid Id, params string[] IncludeList);
         Task<List<Offer>> GetNameAsync(string name, params string[] IncludeList);
+        Task<List<Offer>> GetAsyncByProduct(Guid Id, params string[] IncludeList);
+        Task<List<Offer>> GetAsyncByStatus(Guid Id, params string[] IncludeList);
     }
 }

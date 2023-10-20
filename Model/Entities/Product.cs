@@ -17,6 +17,8 @@ namespace Model.Entities
 
         public Guid? CategoryID { get; set; }
         public Category? Category { get; set; }
+        public Guid? InvoiceID { get; set; }
+        public Invoice? Invoice { get; set; }
         public List<Offer>? Offer { get; set; }
     }
 }

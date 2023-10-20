@@ -3,12 +3,17 @@ using BusinessLayer.InterfacesBs;
 using Core.Utilities.Response;
 using Core.Utilities.Security.Token;
 using DataAccessLayer.Interfaces;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
 using Model.Dtos.UserDto;
 using Model.Dtos.UserLoginDto;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
@@ -58,9 +63,8 @@ namespace BusinessLayer.ImplementationsBs
                     var userDto = _mapper.Map<User>(resultNewUserUpdateDto);
                     return new SuccessApiDataResponse<User>(userDto, "giriş başarılı");
                 }
-                //return new SuccessApiDataResponse<User>(user, "giriş başarısız");
             }
-            return new SuccessApiDataResponse<User>(user, "giriş başarısız");
+            return new SuccessApiDataResponse<User>(user, "giriş başarılı");
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Dtos.ProductDto;
 using Model.Dtos.RequestDto;
+using Model.Dtos.UserLoginDto;
 
 namespace FirstProgram.Controllers
 {
@@ -13,21 +14,30 @@ namespace FirstProgram.Controllers
     public class RequestsController : ControllerBase
     {
         private readonly IRequestBs _requestBs;
-        public RequestsController(IRequestBs requestBs)
+        private readonly IAuthService _authService;
+        private readonly IUserBs _userBs;
+        public RequestsController(IRequestBs requestBs, IAuthService authService, IUserBs userBs)
         {
             _requestBs = requestBs;
+            _authService = authService;
+            _userBs = userBs;
         }
         [HttpGet]
         [Route("[action]")]
-        [Authorize(Roles = "32aa239e-5041-4ebc-a98d-19193778ad0f,bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259,ec4df0e7-a5fd-409c-b7d8-f87af06edb87")]
         public async Task<IActionResult> GetRequests()
         {
             var response = await _requestBs.GetRequestsAsync("Category", "User", "Status");
             return Ok(response);
         }
         [HttpGet]
+        [Route("[action]/{id:Guid}\"")]
+        public async Task<IActionResult> GetDepRequests([FromRoute] Guid id)
+        {
+            var response = await _requestBs.GetUserDepIdAsync(id, "Category", "User", "Status");
+            return Ok(response);
+        }
+        [HttpGet]
         [Route("[action]/{id:Guid}")]
-        [Authorize(Roles = "32aa239e-5041-4ebc-a98d-19193778ad0f,bc4dbbf8-f8f1-4146-b8ab-5ec1f8f3c259,ec4df0e7-a5fd-409c-b7d8-f87af06edb87")]
         public async Task<IActionResult> GetRequestsByStatus([FromRoute] Guid id)
         {
             var response = await _requestBs.GetStatusIdAsync(id, "Category", "User", "Status");

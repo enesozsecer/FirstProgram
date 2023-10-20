@@ -22,19 +22,19 @@ namespace DataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Model.Entities.Authenticate", b =>
+            modelBuilder.Entity("CategorySupplier", b =>
                 {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("CategoryID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("SupplierID")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ID");
+                    b.HasKey("CategoryID", "SupplierID");
 
-                    b.ToTable("Authentications");
+                    b.HasIndex("SupplierID");
+
+                    b.ToTable("CategorySupplier");
                 });
 
             modelBuilder.Entity("Model.Entities.Category", b =>
@@ -84,10 +84,33 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Departments");
                 });
 
+            modelBuilder.Entity("Model.Entities.Invoice", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("SupplierID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SupplierID");
+
+                    b.ToTable("Invoices");
+                });
+
             modelBuilder.Entity("Model.Entities.Offer", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("InvoiceID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -102,9 +125,21 @@ namespace DataAccessLayer.Migrations
                     b.Property<Guid?>("ProductID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("StatusID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SupplierID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("ID");
 
+                    b.HasIndex("InvoiceID");
+
                     b.HasIndex("ProductID");
+
+                    b.HasIndex("StatusID");
+
+                    b.HasIndex("SupplierID");
 
                     b.ToTable("Offers");
                 });
@@ -116,6 +151,9 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CategoryID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InvoiceID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -130,6 +168,8 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("CategoryID");
+
+                    b.HasIndex("InvoiceID");
 
                     b.ToTable("Products");
                 });
@@ -166,6 +206,21 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Requests");
                 });
 
+            modelBuilder.Entity("Model.Entities.Role", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Authentications");
+                });
+
             modelBuilder.Entity("Model.Entities.Status", b =>
                 {
                     b.Property<Guid>("ID")
@@ -180,13 +235,25 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Statuses");
                 });
 
-            modelBuilder.Entity("Model.Entities.User", b =>
+            modelBuilder.Entity("Model.Entities.Supplier", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AuthenticateID")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("Model.Entities.User", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CompanyID")
@@ -205,22 +272,39 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("RoleID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Token")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("TokenExpireDate")
+                    b.Property<DateTime?>("TokenExpireDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AuthenticateID");
 
                     b.HasIndex("CompanyID");
 
                     b.HasIndex("DepartmentID");
 
+                    b.HasIndex("RoleID");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CategorySupplier", b =>
+                {
+                    b.HasOne("Model.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Model.Entities.Supplier", null)
+                        .WithMany()
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Model.Entities.Department", b =>
@@ -232,13 +316,40 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("Model.Entities.Invoice", b =>
+                {
+                    b.HasOne("Model.Entities.Supplier", "Supplier")
+                        .WithMany("Invoice")
+                        .HasForeignKey("SupplierID");
+
+                    b.Navigation("Supplier");
+                });
+
             modelBuilder.Entity("Model.Entities.Offer", b =>
                 {
+                    b.HasOne("Model.Entities.Invoice", "Invoice")
+                        .WithMany("Offer")
+                        .HasForeignKey("InvoiceID");
+
                     b.HasOne("Model.Entities.Product", "Product")
                         .WithMany("Offer")
                         .HasForeignKey("ProductID");
 
+                    b.HasOne("Model.Entities.Status", "Status")
+                        .WithMany("Offer")
+                        .HasForeignKey("StatusID");
+
+                    b.HasOne("Model.Entities.Supplier", "Supplier")
+                        .WithMany("Offer")
+                        .HasForeignKey("SupplierID");
+
+                    b.Navigation("Invoice");
+
                     b.Navigation("Product");
+
+                    b.Navigation("Status");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Model.Entities.Product", b =>
@@ -247,7 +358,15 @@ namespace DataAccessLayer.Migrations
                         .WithMany("Product")
                         .HasForeignKey("CategoryID");
 
+                    b.HasOne("Model.Entities.Invoice", "Invoice")
+                        .WithMany("Product")
+                        .HasForeignKey("InvoiceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Invoice");
                 });
 
             modelBuilder.Entity("Model.Entities.Request", b =>
@@ -273,10 +392,6 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Model.Entities.User", b =>
                 {
-                    b.HasOne("Model.Entities.Authenticate", "Authenticate")
-                        .WithMany("User")
-                        .HasForeignKey("AuthenticateID");
-
                     b.HasOne("Model.Entities.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyID");
@@ -285,16 +400,17 @@ namespace DataAccessLayer.Migrations
                         .WithMany("User")
                         .HasForeignKey("DepartmentID");
 
-                    b.Navigation("Authenticate");
+                    b.HasOne("Model.Entities.Role", "Role")
+                        .WithMany("User")
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
 
                     b.Navigation("Department");
-                });
 
-            modelBuilder.Entity("Model.Entities.Authenticate", b =>
-                {
-                    b.Navigation("User");
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Model.Entities.Category", b =>
@@ -314,14 +430,35 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Model.Entities.Invoice", b =>
+                {
+                    b.Navigation("Offer");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Model.Entities.Product", b =>
                 {
                     b.Navigation("Offer");
                 });
 
+            modelBuilder.Entity("Model.Entities.Role", b =>
+                {
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Model.Entities.Status", b =>
                 {
+                    b.Navigation("Offer");
+
                     b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("Model.Entities.Supplier", b =>
+                {
+                    b.Navigation("Invoice");
+
+                    b.Navigation("Offer");
                 });
 
             modelBuilder.Entity("Model.Entities.User", b =>

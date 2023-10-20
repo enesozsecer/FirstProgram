@@ -15,7 +15,6 @@
             <td>Teklif Fiyatı</td>
             <td>Ürün Adı</td>
             <td>Eski Fiyatı</td>
-            <td>İşlemler</td>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +25,6 @@
                 <td>@item.OfferAmount</td>
                 <td>@item.OfferPrice</td>
                 <td>@item.ProductName</td>
-                <td>@item.ProductPrice</td>
                 <td>
                     <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>

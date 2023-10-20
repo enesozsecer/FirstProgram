@@ -11,7 +11,7 @@ namespace BusinessLayer.ImplementationsBs
     {
         private readonly IRequestRepository _repo;
         private readonly IMapper _mapper;
-        public RequestBs(IRequestRepository repo,IMapper mapper)
+        public RequestBs(IRequestRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
@@ -67,6 +67,18 @@ namespace BusinessLayer.ImplementationsBs
 
             throw new NotImplementedException();
         }
+        public async Task<List<RequestGetDto>> GetUserDepIdAsync(Guid depId, params string[] IncludeList)
+        {
+            var val = await _repo.GetUserDepIdAsync(depId, IncludeList);
+            if (val!=null)
+            {
+                var valList = _mapper.Map<List<RequestGetDto>>(val);
+
+                return valList;
+            }
+
+            throw new NotImplementedException();
+        }
 
         public async Task<List<RequestGetDto>> GetStatusIdAsync(Guid Id, params string[] IncludeList)
         {
@@ -92,6 +104,7 @@ namespace BusinessLayer.ImplementationsBs
 
         public async Task<Request> InsertAsync(RequestPostDto dto)
         {
+            dto.StatusID = Guid.Parse("34f0086e-304e-4eb4-99a1-1c54343a9d7c");
             var val = _mapper.Map<Request>(dto);
             var insertedVal = await _repo.InsertAsync(val);
             return insertedVal;

@@ -14,6 +14,8 @@ namespace BusinessLayer.InterfacesBs
         Task<List<OfferGetDto>> GetOffersAsync(params string[] IncludeList);
         Task<OfferGetDto> GetByIdAsync(Guid Id, params string[] IncludeList);
         Task<List<OfferGetDto>> GetNameAsync(string name, params string[] IncludeList);
+        Task<List<OfferGetDto>> GetAsyncByProduct(Guid Id, params string[] IncludeList);
+        Task<List<OfferGetDto>> GetAsyncByStatus(Guid Id, params string[] IncludeList);
         Task<Offer> InsertAsync(OfferPostDto entity);
         Task<Offer> UpdateAsync(OfferPutDto entity);
         Task DeleteAsync(Guid id);

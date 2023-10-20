@@ -1,20 +1,12 @@
 ﻿using AutoMapper;
 using BusinessLayer.InterfacesBs;
-using DataAccessLayer.Interfaces;
-using Model.Entities;
-using Model.Dtos.UserLoginDto;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.Extensions.Options;
-using System.Data;
-using Model.Dtos.UserDto;
-using Model.Dtos.ProductDto;
-using Core.Utilities.Security.Token;
-using System.Linq.Expressions;
 using Core.Utilities.Response;
-using Core.Entities.Concrete;
+using Core.Utilities.Security.Token;
+using DataAccessLayer.Interfaces;
+using Microsoft.Extensions.Options;
+using Model.Dtos.UserDto;
+using Model.Entities;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.ImplementationsBs
 {

@@ -31,5 +31,9 @@ namespace DataAccessLayer.EF.Repositories
         {
             return await GetAllAsync(val => val.UserID == Id, IncludeList);
         }
+        public async Task<List<Request>> GetUserDepIdAsync(Guid Id, params string[] IncludeList)
+        {
+            return await GetAllAsync(val => val.User.DepartmentID == Id, IncludeList);
+        }
     }
 }
