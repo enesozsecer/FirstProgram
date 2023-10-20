@@ -16,6 +16,10 @@ namespace DataAccessLayer.EF.Repositories
         {
             return await GetAllAsync(val => val.CategoryID==Id, IncludeList);
         }
+        public async Task<List<Product>> GetInvoiceIdAsync(Guid Id, params string[] IncludeList)
+        {
+            return await GetAllAsync(val => val.InvoiceID == Id, IncludeList);
+        }
 
         public async Task<List<Product>> GetNameAsync(string name, params string[] IncludeList)
         {

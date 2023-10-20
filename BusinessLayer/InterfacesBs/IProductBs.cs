@@ -13,6 +13,7 @@ namespace BusinessLayer.InterfacesBs
         Task<List<ProductGetDto>> GetStockAsync(short min, short max, params string[] IncludeList);
         Task<List<ProductGetDto>> GetPriceAsync(decimal min, decimal max, params string[] IncludeList);
         Task<List<ProductGetDto>> GetCategoryIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<ProductGetDto>> GetInvoiceIdAsync(Guid Id, params string[] IncludeList);
         Task<Product> InsertAsync(ProductPostDto entity);
         Task<Product> UpdateAsync(ProductPutDto entity);
         Task DeleteAsync(Guid id);

@@ -19,7 +19,7 @@ namespace FirstProgram.Controllers
         [Route("[action]")]
         public async Task<IActionResult> GetProducts()
         {
-            var response = await _productBs.GetProductsAsync("Category");
+            var response = await _productBs.GetProductsAsync("Category","Invoice");
             return Ok(response);
         }
 
@@ -27,7 +27,14 @@ namespace FirstProgram.Controllers
         [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var response = await _productBs.GetByIdAsync(id, "Category");
+            var response = await _productBs.GetByIdAsync(id, "Category", "Invoice");
+            return Ok(response);
+        }
+        [HttpGet]
+        [Route("[action]/{id:Guid}")]
+        public async Task<IActionResult> GetProductsByInvoice([FromRoute] Guid id)
+        {
+            var response = await _productBs.GetInvoiceIdAsync(id, "Category", "Invoice");
             return Ok(response);
         }
         [HttpPost]

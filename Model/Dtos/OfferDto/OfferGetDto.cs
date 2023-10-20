@@ -14,6 +14,8 @@ namespace Model.Dtos.OfferDto
         public decimal? OfferPrice { get; set; }
         public string ProductName { get; set; }
         public string StatusName{ get; set; }
+        public string? InvoiceName { get; set; }
+        public string? SupplierName { get; set; }
 
     }
 }

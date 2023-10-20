@@ -14,5 +14,7 @@ namespace Model.Dtos.OfferDto
         public decimal? OfferPrice { get; set; }
         public Guid? ProductID { get; set; }
         public Guid? StatusID { get; set; }
+        public Guid? InvoiceID { get; set; }
+        public Guid? SupplierID { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace Model.Dtos.ProductDto
 
         public string? CategoryName { get; set; }
         public string? OfferName { get; set; }
+        public string? InvoiceName { get; set; }
     }
 }

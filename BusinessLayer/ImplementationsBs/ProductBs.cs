@@ -49,6 +49,16 @@ namespace BusinessLayer.ImplementationsBs
             }
             throw new NotImplementedException();
         }
+        public async Task<List<ProductGetDto>> GetInvoiceIdAsync(Guid Id, params string[] IncludeList)
+        {
+            var val = await _repo.GetInvoiceIdAsync(Id, IncludeList);
+            if (val.Count > 0)
+            {
+                var valList = _mapper.Map<List<ProductGetDto>>(val);
+                return valList;
+            }
+            throw new NotImplementedException();
+        }
 
         public async Task<List<ProductGetDto>> GetNameAsync(string name, params string[] IncludeList)
         {

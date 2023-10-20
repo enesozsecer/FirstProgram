@@ -10,5 +10,6 @@ namespace DataAccessLayer.Interfaces
         Task<List<Product>> GetStockAsync(short min, short max, params string[] IncludeList);
         Task<List<Product>> GetPriceAsync(decimal min, decimal max, params string[] IncludeList);
         Task<List<Product>> GetCategoryIdAsync(Guid Id, params string[] IncludeList);
+        Task<List<Product>> GetInvoiceIdAsync(Guid Id, params string[] IncludeList);
     }
 }

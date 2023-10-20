@@ -15,5 +15,7 @@ namespace Model.Dtos.ProductDto
 
         public Guid? CategoryID { get; set; }
         public Guid? OfferID { get; set; }
+        public Guid? InvoiceID { get; set; }
+
     }
 }
