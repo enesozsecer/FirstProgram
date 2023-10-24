@@ -24,6 +24,7 @@
             <div class="form-group">
                 <label>Kategori Adı</label>
                 <select class="form-control" name="CategoryID">
+                    <option value="">Seçiniz</option>
                     @foreach (var item in Model.Cateogry)
                     {
                         <option value="@item.ID">@item.Name</option>

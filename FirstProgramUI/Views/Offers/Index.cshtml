@@ -6,6 +6,7 @@
 
 <h1>Teklifler</h1>
 <a class="btn btn-primary mb-3" asp-action="Add">Ekle</a>
+<a class="btn btn-primary mb-3" asp-action="UpdateAll">Tümünü Güncelle</a>
 
 <table class="table table-bordered">
     <thead>
@@ -14,7 +15,9 @@
             <td>Teklif Adedi</td>
             <td>Teklif Fiyatı</td>
             <td>Ürün Adı</td>
-            <td>Eski Fiyatı</td>
+            <td>Tedarikçi Adı</td>
+            <td>Fatura Adı</td>
+            <td>Durum Adı</td>
         </tr>
     </thead>
     <tbody>
@@ -25,9 +28,13 @@
                 <td>@item.OfferAmount</td>
                 <td>@item.OfferPrice</td>
                 <td>@item.ProductName</td>
+                <td>@item.SupplierName</td>
+                <td>@item.InvoiceName</td>
+                <td>@item.StatusName</td>
                 <td>
-                    <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
+                    <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Güncelle</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>
+                    <a asp-action="UpdateAll" asp-route-id="@item.ID" class="badge alert-danger">Fatura Ekle</a>
                 </td>
             </tr>
         }

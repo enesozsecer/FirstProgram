@@ -1,0 +1,47 @@
+﻿@model FirstProgramUI.Models.InvoiceModel.InvoiceGetModel
+@{
+    ViewData["Title"] = "Delete";
+    //Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h1>Sil</h1>
+<h6 class="text-danger">
+    Bu talebi silmek istediğinizden emin misiniz?
+</h6>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Delete" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" />
+
+            <div class="form-group">
+                <label asp-for="Name">Açıklama</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderAmount">Teklif Miktarı</label>
+                <input asp-for="OrderAmount" class="form-control" />
+                <span asp-validation-for="OrderAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderPrice">Teklif Fiyatı</label>
+                <input asp-for="OrderPrice" class="form-control" />
+                <span asp-validation-for="OrderPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Tedarikçi Adı</label>
+                <select class="form-control" name="SupplierID">
+                    <option value="">Seçiniz</option>
+                    @foreach (var item in Model.Supplier)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sil" class="btn btn-danger" />
+                <a class="btn btn-info" asp-action="Index">Listeye geri dön</a>
+            </div>
+        </form>
+    </div>
+</div>

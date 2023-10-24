@@ -1,13 +1,14 @@
 ﻿@model FirstProgramUI.Models.OfferModel.OfferGetModel
 @{
-    ViewData["Title"] = "Update";
+    ViewData["Title"] = "UpdateAll";
     //Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<h1>Güncelle</h1>
+
+<h1>Fatura Ekle</h1>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Update" method="post">
+        <form asp-action="UpdateAll" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" />
 
             <div class="form-group">
@@ -16,14 +17,14 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OfferAmount">Teklif Adedi</label>
-                <input asp-for="OfferAmount" class="form-control" />
-                <span asp-validation-for="OfferAmount" class="text-danger"></span>
+                <label asp-for="OfferAmount" hidden="hidden">Teklif Adedi</label>
+                <input asp-for="OfferAmount" class="form-control" hidden="hidden" />
+                <span asp-validation-for="OfferAmount" class="text-danger" hidden="hidden"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OfferPrice">Teklif Fiyatı</label>
-                <input asp-for="OfferPrice" class="form-control" />
-                <span asp-validation-for="OfferPrice" class="text-danger"></span>
+                <label asp-for="OfferPrice" hidden="hidden">Teklif Fiyatı</label>
+                <input asp-for="OfferPrice" class="form-control" hidden="hidden" />
+                <span asp-validation-for="OfferPrice" hidden="hidden" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input hidden="hidden" value="@Model.ProductID" asp-for="@Model.ProductName" class="form-control" />
@@ -59,8 +60,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Durum Adı</label>
-                <select class="form-control" name="StatusID">
+                <label hidden="hidden">Durum Adı</label>
+                <select hidden="hidden" class="form-control" name="StatusID">
                     <option value="@Model.StatusID">@Model.StatusName</option>
                     @foreach (var item in Model.Status)
                     {

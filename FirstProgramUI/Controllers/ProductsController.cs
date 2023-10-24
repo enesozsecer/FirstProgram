@@ -50,7 +50,6 @@ namespace FirstProgramUI.Controllers
                 StockQuantity = addViewModel.StockQuantity,
                 ProductPrice = addViewModel.ProductPrice,
                 CategoryID = addViewModel.CategoryID,
-                OfferID = addViewModel.OfferID,
             };
             HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Products/AddNewProduct", postDto);
             if (responseMessage.IsSuccessStatusCode)
@@ -67,13 +66,11 @@ namespace FirstProgramUI.Controllers
             {
                 Cateogry = db.Categories.ToList(),
                 Product = db.Products.ToList(),
-                Offer = db.Offers.ToList(),
                 ID = val.ID,
                 Name = val.Name,
                 StockQuantity = val.StockQuantity,
                 ProductPrice = val.ProductPrice,
                 //CategoryID = val.CategoryID,
-                //OfferID = val.OfferID,
 
             };
 
@@ -88,7 +85,6 @@ namespace FirstProgramUI.Controllers
                 StockQuantity = updateViewModels.StockQuantity,
                 ProductPrice = updateViewModels.ProductPrice,
                 CategoryID = updateViewModels.CategoryID,
-                OfferID = updateViewModels.OfferID,
                 ID = id
             };
             HttpResponseMessage httpResponseMessage = await _httpClient.PutAsJsonAsync(url + "Products/UpdateProduct", putDto);
@@ -110,7 +106,6 @@ namespace FirstProgramUI.Controllers
                 StockQuantity = val.StockQuantity,
                 ProductPrice = val.ProductPrice,
                 CategoryName = val.CategoryName,
-                OfferName = val.OfferName,
             };
 
             return View(deleteViewModel);

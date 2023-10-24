@@ -19,5 +19,6 @@ namespace BusinessLayer.InterfacesBs
         Task<Offer> InsertAsync(OfferPostDto entity);
         Task<Offer> UpdateAsync(OfferPutDto entity);
         Task DeleteAsync(Guid id);
+        Task<List<Offer>> UpdateAllAsync(OfferPutDto entity);
     }
 }

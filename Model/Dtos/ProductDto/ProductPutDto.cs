@@ -13,7 +13,6 @@ namespace Model.Dtos.ProductDto
         public short? StockQuantity { get; set; }
         public decimal? ProductPrice { get; set; }
         public Guid? CategoryID { get; set; }
-        public Guid? OfferID { get; set; }
         public Guid? InvoiceID { get; set; }
 
     }

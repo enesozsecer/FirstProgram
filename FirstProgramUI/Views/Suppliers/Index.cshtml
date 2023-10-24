@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Model.Dtos.SupplierDto.SupplierGetDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h1>Tedarikçiler</h1>
+<a class="btn btn-primary mb-3" asp-action="Add">Ekle</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Tedarikçi Adı</td>
+            <td>Kategori Adı</td>
+            <td>İşlemler</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.CategoryName</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.ID" class="badge alert-info">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="badge alert-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

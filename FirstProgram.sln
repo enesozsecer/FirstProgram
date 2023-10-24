@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{E5F13C36-842B-417B-AECF-A3185936FA89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstProgramUI", "FirstProgramUI\FirstProgramUI.csproj", "{902A52B8-A99D-4AE2-88F8-645F22B2B37F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstProgramUI", "FirstProgramUI\FirstProgramUI.csproj", "{902A52B8-A99D-4AE2-88F8-645F22B2B37F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

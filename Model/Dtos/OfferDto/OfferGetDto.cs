@@ -16,6 +16,10 @@ namespace Model.Dtos.OfferDto
         public string StatusName{ get; set; }
         public string? InvoiceName { get; set; }
         public string? SupplierName { get; set; }
+        public Guid? ProductID { get; set; }
+        public Guid? StatusID { get; set; }
+        public Guid? InvoiceID { get; set; }
+        public Guid? SupplierID { get; set; }
 
     }
 }

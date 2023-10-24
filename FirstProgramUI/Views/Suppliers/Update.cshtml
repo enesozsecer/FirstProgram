@@ -1,8 +1,10 @@
-﻿@model FirstProgramUI.Models.DepartmentModel.DepartmentGetModel
+﻿@model FirstProgramUI.Models.SupplierModel.SupplierGetModel
 @{
     ViewData["Title"] = "Update";
     //Layout = "~/Views/Shared/Layout.cshtml";
 }
+
+<h1>Update</h1>
 
 <h1>Güncelle</h1>
 <div class="row">
@@ -10,21 +12,20 @@
         <form asp-action="Update" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" />
             <div class="form-group">
-                <label asp-for="Name">Departman Adı</label>
+                <label asp-for="Name">Tedarikçi Adı</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Şirket Adı</label>
-                <select class="form-control" name="CompanyID">
+                <label>Kategori Adı</label>
+                <select class="form-control" name="CategoryID">
                     <option value="">Seçiniz</option>
-                    @foreach (var item in Model.Company)
+                    @foreach (var item in Model.Category)
                     {
                         <option value="@item.ID">@item.Name</option>
                     }
                 </select>
             </div>
-
             <div class="form-group">
                 <input type="submit" value="Güncelle" class="btn btn-primary" />
                 <a class="btn btn-info" asp-action="Index">Listeye geri dön</a>

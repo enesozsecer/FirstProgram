@@ -39,7 +39,7 @@ namespace FirstProgram.Controllers
         }
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> AddNewInvoices([FromBody] InvoicePostDto dto)
+        public async Task<IActionResult> AddNewInvoice([FromBody] InvoicePostDto dto)
         {
             dto.ID = Guid.NewGuid();
             var response = await _invoiceBs.InsertAsync(dto);

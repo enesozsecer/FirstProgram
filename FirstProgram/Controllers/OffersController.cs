@@ -1,4 +1,5 @@
-﻿using BusinessLayer.InterfacesBs;
+﻿using Azure;
+using BusinessLayer.InterfacesBs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,35 +21,35 @@ namespace FirstProgram.Controllers
         [Route("[action]")]
         public async Task<IActionResult> GetOffers()
         {
-            var response = await _offerBs.GetOffersAsync("Product", "Status");
+            var response = await _offerBs.GetOffersAsync("Product", "Status","Invoice","Supplier");
             return Ok(response);
         }
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> GetOffersBySupplier(string name)
         {
-            var response = await _offerBs.GetNameAsync(name, "Product", "Status");
+            var response = await _offerBs.GetNameAsync(name, "Product", "Status", "Invoice", "Supplier");
             return Ok(response);
         }
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> GetOffersByProduct(Guid Id)
         {
-            var response = await _offerBs.GetAsyncByProduct(Id, "Product", "Status");
+            var response = await _offerBs.GetAsyncByProduct(Id, "Product", "Status", "Invoice", "Supplier");
             return Ok(response);
         }
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> GetOffersByStatus(Guid Id)
         {
-            var response = await _offerBs.GetAsyncByStatus(Id, "Product", "Status");
+            var response = await _offerBs.GetAsyncByStatus(Id, "Product", "Status", "Invoice", "Supplier");
             return Ok(response);
         }
         [HttpGet]
         [Route("[action]/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var response = await _offerBs.GetByIdAsync(id, "Product", "Status");
+            var response = await _offerBs.GetByIdAsync(id, "Product", "Status", "Invoice", "Supplier");
             return Ok(response);
         }
         //[AllowAnonymous]
@@ -66,6 +67,14 @@ namespace FirstProgram.Controllers
         {
             var response = await _offerBs.UpdateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = response.ID }, response);
+        }
+        [HttpPut]
+        [Route("[action]")]
+        public async Task<IActionResult> UpdateAll([FromBody] OfferPutDto dto)
+        {
+            var response = await _offerBs.UpdateAllAsync(dto);
+            return Ok(response);
+            
         }
         [HttpDelete]
         [Route("[action]/{id:Guid}")]
