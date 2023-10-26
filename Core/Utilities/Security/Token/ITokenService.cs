@@ -8,6 +8,6 @@ namespace Core.Utilities.Security.Token
 {
     public interface ITokenService
     {
-        AccessToken CreateToken(Guid userId, string userName);
+        AccessToken CreateToken(Guid userId, string userName, Guid roleId);
     }
 }

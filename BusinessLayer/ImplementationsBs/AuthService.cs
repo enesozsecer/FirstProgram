@@ -44,7 +44,7 @@ namespace BusinessLayer.ImplementationsBs
             {
                 if (user.TokenExpireDate == null || string.IsNullOrEmpty(user.Token))
                 {
-                    var accessToken = _tokenService.CreateToken(user.ID, user.Name);
+                    var accessToken = _tokenService.CreateToken(user.ID, user.Name,user.RoleID);
                     var userUpdateDto = _mapper.Map<UserPutDto>(user);
                     userUpdateDto.Token = accessToken.Token;
                     userUpdateDto.TokenExpireDate = accessToken.Expiration;
@@ -55,7 +55,7 @@ namespace BusinessLayer.ImplementationsBs
                 }
                 if (user.TokenExpireDate < DateTime.Now)
                 {
-                    var accessToken = _tokenService.CreateToken(user.ID, user.Name);
+                    var accessToken = _tokenService.CreateToken(user.ID, user.Name,user.RoleID);
                     var userUpdateDto = _mapper.Map<UserPutDto>(user);
                     userUpdateDto.Token = accessToken.Token;
                     userUpdateDto.TokenExpireDate = accessToken.Expiration;

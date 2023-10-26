@@ -12,6 +12,6 @@ namespace Core.Utilities.Security.Token
         public DateTime Expiration { get; set; }
         public Guid UserID { get; set; }
         public string UserName { get; set; }
-        public Guid AuthenticationID { get; set; }
+        public Guid RoleID { get; set; }
     }
 }

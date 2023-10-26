@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLayer.InterfacesBs;
 using DataAccessLayer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Model.Dtos.CategoryDto;
 using Model.Dtos.CompanyDto;
 using Model.Entities;
@@ -37,7 +38,6 @@ namespace BusinessLayer.ImplementationsBs
             }
             throw new NotImplementedException();
         }
-
         public async Task<List<CategoryGetDto>> GetCategoriesAsync(params string[] IncludeList)
         {
             var val = await _repo.GetAllAsync(includeList: IncludeList);

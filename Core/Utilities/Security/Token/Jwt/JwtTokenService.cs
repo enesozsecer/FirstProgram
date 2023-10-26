@@ -18,8 +18,9 @@ namespace Core.Utilities.Security.Token.Jwt
         {
             _appSettings = appSettings.Value;
         }
-        public AccessToken CreateToken(Guid userId, string userName)
+        public AccessToken CreateToken(Guid userId, string userName,Guid roleId)
         {
+            
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.SecurityKey);
             var tokenDescriptor = new SecurityTokenDescriptor()
@@ -27,8 +28,8 @@ namespace Core.Utilities.Security.Token.Jwt
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier,userId.ToString()),
-
-                    new Claim(ClaimTypes.Role,userId.ToString()),
+                    new Claim(ClaimTypes.Name,userName),
+                    new Claim(ClaimTypes.Role,roleId.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -40,7 +41,7 @@ namespace Core.Utilities.Security.Token.Jwt
                 Expiration = (DateTime)tokenDescriptor.Expires,
                 UserName = userName,
                 UserID = userId,
-                AuthenticationID=userId
+                RoleID= roleId
             };
         }
     }

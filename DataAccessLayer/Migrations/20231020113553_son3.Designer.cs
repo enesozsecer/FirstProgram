@@ -221,7 +221,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Authentications");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Model.Entities.Status", b =>

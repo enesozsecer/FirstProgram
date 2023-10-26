@@ -15,7 +15,7 @@ namespace FirstProgramUI.ApiServices
         }
         public async Task<ApiDataResponse<User>> LoginAsync(LoginDto loginDto)
         {
-            HttpResponseMessage httpResponseMessage = await _httpClient.PostAsJsonAsync("Auths/Login", loginDto);
+            HttpResponseMessage httpResponseMessage = await _httpClient.PostAsJsonAsync("https://localhost:7161/api/Auths/Login", loginDto);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 var data =await httpResponseMessage.Content.ReadAsStringAsync();

@@ -2,17 +2,14 @@ using BusinessLayer.ImplementationsBs;
 using BusinessLayer.InterfacesBs;
 using BusinessLayer.Profiles;
 using Core.Extensions;
-using Core.Extentions;
 using Core.Utilities.Security.Token;
 using Core.Utilities.Security.Token.Jwt;
 using DataAccessLayer.EF.Repositories;
 using DataAccessLayer.Interfaces;
-using System.Text.Json.Serialization;
-using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +29,6 @@ var appSettings = appSettingsSection.Get<AppSettings>();
 var key = Encoding.ASCII.GetBytes(appSettings.SecurityKey);
 builder.Services.AddAuthentication(x =>
 {
-    //var key = Encoding.UTF8.GetBytes("afjsakjhfakjsfhaklsfhasjkdjk");
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(x =>

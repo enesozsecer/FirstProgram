@@ -22,7 +22,7 @@ namespace FirstProgramUI.Controllers
         }
         FirstProgramContext db = new FirstProgramContext();
         #endregion
-        
+        [Authorize(Roles = "6739108f-db13-492c-907d-0e05d5d18769,32aa239e-5041-4ebc-a98d-19193778ad0f")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {

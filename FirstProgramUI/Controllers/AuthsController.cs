@@ -32,12 +32,13 @@ namespace FirstProgramUI.Controllers
             var user = await _authApiService.LoginAsync(loginDto);
             if (user!=null && user.Success)
             {
+
                 _httpContextAccessor.HttpContext.Session.SetString("token", user.Data.Token);
-                //_httpContextAccessor.HttpContext.Session.SetString("AuthsID", user.Data.AuthenticateID.ToString());
-                
+
                 var userClaims = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 userClaims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Data.ID.ToString()));
                 userClaims.AddClaim(new Claim(ClaimTypes.Name, user.Data.Email));
+                userClaims.AddClaim(new Claim(ClaimTypes.Role, user.Data.RoleID.ToString()));
                 var claimPrincipal = new ClaimsPrincipal(userClaims);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
                 return RedirectToAction("Index", "Home");
